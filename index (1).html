@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEDDIC Call Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --bg2: #171717;
+    --bg3: #1e1e1e;
+    --bg4: #252525;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #f0f0f0;
+    --text2: #888;
+    --text3: #555;
+    --accent: #4ade80;
+    --accent-dim: rgba(74,222,128,0.12);
+    --accent-border: rgba(74,222,128,0.3);
+    --red: #f87171;
+    --red-dim: rgba(248,113,113,0.1);
+    --amber: #fbbf24;
+    --amber-dim: rgba(251,191,36,0.1);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96,165,250,0.1);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.1);
+    --teal: #2dd4bf;
+    --teal-dim: rgba(45,212,191,0.1);
+    --coral: #fb923c;
+    --coral-dim: rgba(251,146,60,0.1);
+    --pink: #f472b6;
+    --pink-dim: rgba(244,114,182,0.1);
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.6; }
+  body { min-height: 100vh; }
+
+  /* LAYOUT */
+  .shell { display: flex; min-height: 100vh; }
+  .sidebar { width: 280px; min-height: 100vh; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
+  .main { flex: 1; overflow-y: auto; }
+
+  /* SIDEBAR */
+  .sb-header { padding: 20px 16px 16px; border-bottom: 1px solid var(--border); }
+  .sb-logo { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 2px; }
+  .sb-title { font-size: 16px; font-weight: 500; color: var(--text); }
+  .sb-new { margin: 12px 16px; background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent); border-radius: var(--radius); padding: 9px 14px; font-size: 13px; font-family: 'DM Sans', sans-serif; cursor: pointer; width: calc(100% - 32px); display: flex; align-items: center; gap: 8px; transition: background 0.15s; }
+  .sb-new:hover { background: rgba(74,222,128,0.2); }
+  .sb-section-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); padding: 12px 16px 6px; font-family: 'DM Mono', monospace; }
+  .sb-list { flex: 1; overflow-y: auto; padding-bottom: 16px; }
+  .sb-item { padding: 10px 16px; cursor: pointer; border-left: 2px solid transparent; transition: all 0.12s; }
+  .sb-item:hover { background: var(--bg3); }
+  .sb-item.active { background: var(--bg3); border-left-color: var(--accent); }
+  .sb-item-company { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sb-item-meta { font-size: 11px; color: var(--text3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sb-item.active .sb-item-meta { color: var(--text2); }
+  .sb-dots { display: flex; gap: 3px; margin-top: 5px; }
+  .sb-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--bg4); }
+  .sb-dot.ok { background: var(--accent); }
+  .sb-empty { padding: 24px 16px; text-align: center; color: var(--text3); font-size: 12px; line-height: 1.8; }
+
+  /* MAIN EMPTY */
+  .main-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 12px; color: var(--text3); }
+  .main-empty .big { font-size: 48px; }
+  .main-empty p { font-size: 13px; }
+
+  /* FORM */
+  .form-wrap { max-width: 760px; margin: 0 auto; padding: 32px 24px 80px; }
+  .form-topbar { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; gap: 12px; flex-wrap: wrap; }
+  .form-heading { font-size: 22px; font-weight: 500; color: var(--text); }
+  .form-subheading { font-size: 13px; color: var(--text3); margin-top: 3px; }
+  .topbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn { background: transparent; border: 1px solid var(--border2); color: var(--text2); border-radius: var(--radius); padding: 7px 13px; font-size: 12px; font-family: 'DM Sans', sans-serif; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.12s; white-space: nowrap; }
+  .btn:hover { background: var(--bg3); color: var(--text); }
+  .btn.danger { color: var(--red); border-color: rgba(248,113,113,0.25); }
+  .btn.danger:hover { background: var(--red-dim); }
+  .btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* SUMBAR */
+  .sumbar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 24px; }
+  .sum-cell { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 6px; text-align: center; transition: border-color 0.2s; }
+  .sum-cell.ok { border-color: var(--accent-border); background: var(--accent-dim); }
+  .sum-letter { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); }
+  .sum-cell.ok .sum-letter { color: var(--accent); }
+  .sum-ind { width: 5px; height: 5px; border-radius: 50%; background: var(--bg4); margin: 5px auto 0; }
+  .sum-cell.ok .sum-ind { background: var(--accent); }
+
+  /* META */
+  .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 24px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; }
+  .field label { display: block; font-size: 11px; letter-spacing: 0.05em; color: var(--text3); margin-bottom: 5px; font-family: 'DM Mono', monospace; text-transform: uppercase; }
+  .field input, .field select, .field textarea { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius); padding: 8px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.12s; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--border2); }
+  .field select { appearance: none; cursor: pointer; }
+  .field textarea { resize: vertical; min-height: 58px; line-height: 1.55; }
+  .hint { font-size: 11px; color: var(--text3); margin-top: 4px; line-height: 1.5; font-style: italic; }
+
+  /* SECTIONS */
+  .sec { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s; }
+  .sec.has-data { border-color: var(--border2); }
+  .sec-hdr { display: flex; align-items: center; gap: 12px; padding: 13px 16px; cursor: pointer; user-select: none; transition: background 0.12s; }
+  .sec-hdr:hover { background: var(--bg3); }
+  .sec-badge { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; flex-shrink: 0; }
+  .sec-info { flex: 1; }
+  .sec-name { font-size: 13px; font-weight: 500; color: var(--text); }
+  .sec-desc { font-size: 11px; color: var(--text3); margin-top: 1px; }
+  .sec-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--bg4); flex-shrink: 0; transition: background 0.2s; }
+  .sec.has-data .sec-dot { background: var(--accent); }
+  .sec-chev { color: var(--text3); font-size: 12px; transition: transform 0.18s; flex-shrink: 0; }
+  .sec.collapsed .sec-chev { transform: rotate(-90deg); }
+  .sec-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid var(--border); }
+  .sec.collapsed .sec-body { display: none; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .conf-row { display: flex; align-items: center; gap: 10px; }
+  .conf-label { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; }
+  .cpills { display: flex; gap: 5px; }
+  .cpill { width: 28px; height: 28px; border-radius: var(--radius); border: 1px solid var(--border2); background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; color: var(--text3); font-family: 'DM Mono', monospace; display: flex; align-items: center; justify-content: center; transition: all 0.12s; }
+  .cpill:hover { background: var(--bg4); color: var(--text); }
+  .cpill.a1 { background: var(--red-dim); border-color: rgba(248,113,113,0.35); color: var(--red); }
+  .cpill.a2 { background: var(--amber-dim); border-color: rgba(251,191,36,0.35); color: var(--amber); }
+  .cpill.a3 { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
+
+  /* LIVE NOTES */
+  .notes-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 24px; }
+  .notes-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .notes-label { font-size: 11px; letter-spacing: 0.05em; color: var(--text3); font-family: 'DM Mono', monospace; text-transform: uppercase; display: flex; align-items: center; gap: 7px; }
+  .notes-pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .notes-clear { font-size: 11px; color: var(--text3); background: transparent; border: none; cursor: pointer; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.12s; }
+  .notes-clear:hover { color: var(--red); }
+  .notes-area { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius); padding: 12px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; resize: vertical; min-height: 100px; line-height: 1.65; transition: border-color 0.12s; }
+  .notes-area:focus { border-color: var(--accent-border); }
+  .notes-area::placeholder { color: var(--text3); }
+  .notes-chars { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; margin-top: 6px; text-align: right; }
+
+  /* NEXT STEPS */
+  .nextsteps-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; margin-top: 10px; }
+  .nextsteps-label { font-size: 11px; letter-spacing: 0.05em; color: var(--text3); margin-bottom: 10px; font-family: 'DM Mono', monospace; text-transform: uppercase; }
+
+  /* SAVE BAR */
+  .save-bar { display: flex; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+  .save-status { font-size: 12px; color: var(--text3); font-family: 'DM Mono', monospace; }
+  .save-status.saved { color: var(--accent); }
+  .copy-ok { font-size: 12px; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 5px 10px; display: none; font-family: 'DM Mono', monospace; }
+
+  /* MOBILE */
+  .mobile-back { display: none; }
+  @media (max-width: 700px) {
+    .shell { flex-direction: column; }
+    .sidebar { width: 100%; min-height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .sidebar.hidden-mobile { display: none; }
+    .main.hidden-mobile { display: none; }
+    .mobile-back { display: inline-flex; margin-bottom: 16px; }
+    .form-wrap { padding: 20px 16px 60px; }
+    .two-col { grid-template-columns: 1fr; }
+    .sumbar { grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .meta-grid { grid-template-columns: 1fr 1fr; }
+    .sb-list { max-height: 240px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell" id="shell">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sb-header">
+      <div class="sb-logo">SonarSource</div>
+      <div class="sb-title">MEDDIC Tracker</div>
+    </div>
+    <button class="sb-new" onclick="newCall()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+      New call
+    </button>
+    <div class="sb-section-label">Calls</div>
+    <div class="sb-list" id="sb-list">
+      <div class="sb-empty" id="sb-empty">No calls yet.<br>Hit "New call" to start.</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+    <div class="main-empty" id="main-empty">
+      <div class="big">&#9776;</div>
+      <p>Select a call or create a new one</p>
+    </div>
+
+    <div class="form-wrap" id="form-wrap" style="display:none;">
+      <button class="btn mobile-back" onclick="backToList()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"/></svg>
+        All calls
+      </button>
+      <div class="form-topbar">
+        <div>
+          <div class="form-heading" id="form-heading">New call</div>
+          <div class="form-subheading" id="form-subheading">Fill as you go — saves automatically</div>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn" onclick="copyCall()">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="8" height="9" rx="1"/><path d="M3 11V3a1 1 0 0 1 1-1h7"/></svg>
+            Copy as text
+          </button>
+          <button class="btn danger" onclick="deleteCall()">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,4 14,4"/><path d="M5 4V2h6v2"/><path d="M6 7v5M10 7v5"/><path d="M3 4l1 9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-9"/></svg>
+            Delete
+          </button>
+        </div>
+      </div>
+
+      <!-- SUMBAR -->
+      <div class="sumbar" id="sumbar">
+        <div class="sum-cell" id="sum-M"><div class="sum-letter">M</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-E"><div class="sum-letter">E</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-D"><div class="sum-letter">D</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-D2"><div class="sum-letter">D</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-I"><div class="sum-letter">I</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-C"><div class="sum-letter">C</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-C2"><div class="sum-letter">C</div><div class="sum-ind"></div></div>
+      </div>
+
+      <!-- META -->
+      <div class="meta-grid">
+        <div class="field"><label>Company</label><input type="text" id="f-company" placeholder="Acme Corp" oninput="autosave()"></div>
+        <div class="field"><label>Contact</label><input type="text" id="f-contact" placeholder="Jane Smith" oninput="autosave()"></div>
+        <div class="field"><label>Role</label><input type="text" id="f-role" placeholder="VP Engineering" oninput="autosave()"></div>
+        <div class="field"><label>Date</label><input type="text" id="f-date" placeholder="12 May 2026" oninput="autosave()"></div>
+        <div class="field"><label>Call type</label>
+          <select id="f-calltype" onchange="autosave()">
+            <option>Discovery #1</option><option>Discovery #2</option><option>Demo</option><option>Proposal</option><option>Negotiation</option><option>Follow-up</option>
+          </select>
+        </div>
+        <div class="field"><label>Stage</label>
+          <select id="f-stage" onchange="autosave()">
+            <option>Prospecting</option><option>Qualified</option><option>Discovery</option><option>Demo</option><option>Proposal</option><option>Negotiation</option><option>Closed won</option><option>Closed lost</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- LIVE NOTES -->
+      <div class="notes-wrap">
+        <div class="notes-header">
+          <div class="notes-label">
+            <div class="notes-pulse"></div>
+            Live notes — type freely during the call
+          </div>
+          <button class="notes-clear" onclick="clearNotes()" title="Clear notes">Clear</button>
+        </div>
+        <textarea class="notes-area" id="f-livenotes" placeholder="Type anything here in real time — key quotes, observations, things to follow up on, ideas...&#10;&#10;No structure needed. Just capture what you hear." oninput="onNotesInput()"></textarea>
+        <div class="notes-chars" id="notes-chars">0 characters</div>
+      </div>
+
+      <!-- SECTIONS -->
+      <div id="sections-wrap"></div>
+
+      <!-- NEXT STEPS -->
+      <div class="nextsteps-wrap">
+        <div class="nextsteps-label">Next steps &amp; owners</div>
+        <div class="field">
+          <textarea id="f-nextsteps" placeholder="Nathan: send SOC 2 to Ben by Friday.&#10;Lucas: confirm contract end date before 20 May call.&#10;Next call: 20 May 14:00 CET" style="min-height:72px;" oninput="autosave()"></textarea>
+        </div>
+      </div>
+
+      <div class="save-bar">
+        <span class="save-status" id="save-status">All changes saved</span>
+        <div class="copy-ok" id="copy-ok">Copied to clipboard</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SECTIONS = [
+  { key:'M', letter:'M', label:'Metrics', desc:'Quantify the problem & value',
+    color:'#60a5fa', bg:'rgba(96,165,250,0.12)',
+    fields:[
+      {id:'m-dealval', label:'Typical deal / project value', ph:'e.g. 500k per project'},
+      {id:'m-team', label:'Team size / volume', ph:'e.g. 20 devs, 40 tickets/sprint'},
+      {id:'m-waste', label:'Time / resource wasted', ph:'e.g. ~3h/day on manual reviews', hint:'Hesitating? Give two extremes: "5 min or 5 hours a day?" — let them place themselves.'},
+      {id:'m-okrs', label:'CEO / company OKRs mentioned', ph:'e.g. Shipping velocity, reducing security incidents', ta:true},
+      {id:'m-impact', label:'Our calculated impact', ph:'e.g. 10% pipeline improvement = £1M at their team scale'}
+    ]},
+  { key:'E', letter:'E', label:'Economic buyer', desc:'Who signs? What do they care about?',
+    color:'#fbbf24', bg:'rgba(251,191,36,0.1)',
+    fields:[
+      {id:'e-name', label:'EB name & title', ph:'e.g. Tony Dumont, CEO', hint:'Make an educated guess then confirm: "Usually someone like Tony signs this — is that right?"'},
+      {id:'e-budget', label:'Budget owner (if different)', ph:'e.g. Marie Chen, CFO — different budget line'},
+      {id:'e-cares', label:'What the EB cares about', ph:'e.g. Shipping faster, reducing risk before IPO', ta:true, hint:'"In your company meetings, what goals does your CEO keep talking about?"'},
+      {id:'e-aware', label:'Awareness of our proposal', ph:'e.g. Champion will brief Tony before pricing call'}
+    ]},
+  { key:'D', letter:'D', label:'Decision process', desc:'How will they buy? Step by step.',
+    color:'#4ade80', bg:'rgba(74,222,128,0.08)',
+    fields:[
+      {id:'dp-process', label:'Review process described', ph:'e.g. Internal review → 3-week trial → sign-off from Tony', ta:true, hint:'Try to streamline: "I can build the trial env myself — just tell me what you need to see."'},
+      {id:'dp-greenlight', label:'Steps to formal green light', ph:'e.g. Security ✓ → Legal (Alex) ✓ → CEO signature', ta:true, hint:'Ask before sharing pricing — people are distracted by numbers on that call.'},
+      {id:'dp-close', label:'Expected close date', ph:'e.g. End of Q2'},
+      {id:'dp-blockers', label:'Blockers / dependencies', ph:'e.g. Legal on PTO in August'}
+    ]},
+  { key:'D2', letter:'D', label:'Decision criteria', desc:'What factors decide the winner?',
+    color:'#2dd4bf', bg:'rgba(45,212,191,0.08)',
+    fields:[
+      {id:'dc-factors', label:'Top 2–4 must-have factors', ph:'e.g. 1. IDE integration  2. Scan speed  3. No false positives', ta:true, hint:'"Imagine the final moment with Tony and Marie — what 2–3 things will actually decide which provider wins?"'},
+      {id:'dc-why', label:'Why each factor matters', ph:'e.g. IDE plugin → devs find issues too late in CI', ta:true},
+      {id:'dc-eb', label:'EB priorities vs champion', ph:'e.g. Tony cares about audit trail & compliance, not scan speed'},
+      {id:'dc-align', label:'How we align (demo / email / BC)', ph:'e.g. Demo: IDE plugin → scan benchmark → SSO walkthrough', ta:true}
+    ]},
+  { key:'I', letter:'I', label:'Identify pain', desc:'What problem are we actually solving?',
+    color:'#f472b6', bg:'rgba(244,114,182,0.08)',
+    fields:[
+      {id:'ip-pain', label:'Core pain (their words)', ph:'e.g. "We ship code that passes CI but breaks in prod"', ta:true},
+      {id:'ip-urgency', label:'Why change now?', ph:'e.g. Two security incidents triggered a board mandate', hint:'Challenge them: "You\'ve operated without this for 5 years — why does it need to change now?"'},
+      {id:'ip-impact', label:'Business-level impact', ph:'e.g. Each incident = ~2 weeks dev time + client reputational risk', ta:true, hint:'"Why would your CEO spend tens of thousands solving this?"'},
+      {id:'ip-nuggets', label:'Nuggets to dig deeper on', ph:'e.g. Mentioned AI-generated code twice — ask about Copilot usage next call', hint:'"Tell me more" is often the most powerful question you have.'}
+    ]},
+  { key:'C', letter:'C', label:'Champion', desc:'Who is selling internally for us?',
+    color:'#a78bfa', bg:'rgba(167,139,250,0.08)',
+    fields:[
+      {id:'ch-name', label:'Champion name & role', ph:'e.g. Lucas Peeters, Head of Platform Eng'},
+      {id:'ch-rapport', label:'Rapport level', ph:'e.g. Strong — gave mobile number'},
+      {id:'ch-tests', label:'Champion tests passed', ph:'e.g. ✓ Gave AOV unprompted  ✗ Forgot contract end date', ta:true, hint:'Test: ask personal metric (AOV, target), assign homework before next call.'},
+      {id:'ch-wiifm', label:'Their personal win (WIIFM)', ph:'e.g. If this rolls out, he gets promoted to Eng Director'},
+      {id:'ch-access', label:'Access / influence', ph:'e.g. Direct line to CFO, presents at monthly exec review'}
+    ]},
+  { key:'C2', letter:'C', label:'Competition', desc:'Who else are they looking at?',
+    color:'#fb923c', bg:'rgba(251,146,60,0.08)',
+    fields:[
+      {id:'comp-names', label:'Competitors in play', ph:'e.g. Veracode, Checkmarx, GitHub Advanced Security', hint:'If they won\'t say: "I need this to show you the right comparison points in the demo."'},
+      {id:'comp-lean', label:'Current lean / signals', ph:'e.g. Questions map exactly to Checkmarx roadmap features', ta:true, hint:'Name it: "I\'m getting a feeling you may be leaning toward X — am I misreading that?"'},
+      {id:'comp-strengths', label:'Our strengths vs. them', ph:'e.g. IDE plugin quality, Sonar Way methodology, open source traction', ta:true},
+      {id:'comp-gaps', label:'Our gaps to address', ph:'e.g. No DAST module yet — prepare mitigation messaging'}
+    ]}
+];
+
+const FIELD_LABELS = {};
+SECTIONS.forEach(s => s.fields.forEach(f => { FIELD_LABELS[f.id] = f.label; }));
+
+let calls = [];
+let currentId = null;
+let saveTimer = null;
+let confData = {};
+
+// localStorage helpers
+function loadStorage() {
+  try { return JSON.parse(localStorage.getItem('meddic_calls') || '[]'); } catch(e) { return []; }
+}
+function saveStorage() {
+  localStorage.setItem('meddic_calls', JSON.stringify(calls));
+}
+function loadCallData(id) {
+  try { return JSON.parse(localStorage.getItem('meddic_call_' + id) || 'null'); } catch(e) { return null; }
+}
+function saveCallData(id, data) {
+  localStorage.setItem('meddic_call_' + id, JSON.stringify(data));
+}
+function deleteCallData(id) {
+  localStorage.removeItem('meddic_call_' + id);
+}
+
+// Build sections HTML
+function buildSections() {
+  const wrap = document.getElementById('sections-wrap');
+  wrap.innerHTML = '';
+  SECTIONS.forEach(sec => {
+    const div = document.createElement('div');
+    div.className = 'sec collapsed';
+    div.id = 'sec-' + sec.key;
+    let fieldsHTML = '';
+    const fs = sec.fields;
+    for (let i = 0; i < fs.length; i++) {
+      const f = fs[i];
+      if (!f.ta && fs[i+1] && !fs[i+1].ta && !f._p) {
+        f._p = true; fs[i+1]._p = true;
+        fieldsHTML += `<div class="two-col">${fHTML(f, sec.key)}${fHTML(fs[i+1], sec.key)}</div>`;
+        i++;
+      } else { fieldsHTML += fHTML(f, sec.key); }
+    }
+    div.innerHTML = `
+      <div class="sec-hdr" onclick="toggleSec('${sec.key}')">
+        <div class="sec-badge" style="background:${sec.bg};color:${sec.color};">${sec.letter}</div>
+        <div class="sec-info"><div class="sec-name">${sec.label}</div><div class="sec-desc">${sec.desc}</div></div>
+        <div class="sec-dot"></div>
+        <svg class="sec-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><polyline points="2,4 6,8 10,4"/></svg>
+      </div>
+      <div class="sec-body">
+        ${fieldsHTML}
+        <div class="conf-row">
+          <span class="conf-label">Confidence</span>
+          <div class="cpills" id="cpills-${sec.key}"></div>
+        </div>
+      </div>`;
+    wrap.appendChild(div);
+  });
+  SECTIONS.forEach(s => s.fields.forEach(f => { delete f._p; }));
+  buildPills();
+}
+
+function fHTML(f, key) {
+  const input = f.ta
+    ? `<textarea id="${f.id}" placeholder="${f.ph}" oninput="onField('${key}')"></textarea>`
+    : `<input type="text" id="${f.id}" placeholder="${f.ph}" oninput="onField('${key}')">`;
+  const hint = f.hint ? `<div class="hint">${f.hint}</div>` : '';
+  return `<div class="field"><label>${f.label}</label>${input}${hint}</div>`;
+}
+
+function buildPills() {
+  SECTIONS.forEach(sec => {
+    confData[sec.key] = confData[sec.key] || 0;
+    const c = document.getElementById('cpills-' + sec.key);
+    if (!c) return;
+    c.innerHTML = '';
+    [1,2,3].forEach(v => {
+      const b = document.createElement('button');
+      b.className = 'cpill' + (confData[sec.key] === v ? ' a'+v : '');
+      b.textContent = v;
+      b.onclick = () => {
+        confData[sec.key] = confData[sec.key] === v ? 0 : v;
+        buildPills();
+        updateSumBar();
+        autosave();
+      };
+      c.appendChild(b);
+    });
+  });
+}
+
+function toggleSec(key) { document.getElementById('sec-' + key).classList.toggle('collapsed'); }
+
+function onField(key) { updateSumBar(); autosave(); }
+
+function updateSumBar() {
+  SECTIONS.forEach(sec => {
+    const secEl = document.getElementById('sec-' + sec.key);
+    if (!secEl) return;
+    const inputs = secEl.querySelectorAll('input[type=text], textarea');
+    let filled = confData[sec.key] > 0;
+    inputs.forEach(el => { if (el.value && el.value.trim()) filled = true; });
+    secEl.className = 'sec' + (secEl.classList.contains('collapsed') ? ' collapsed' : '') + (filled ? ' has-data' : '');
+    const sd = secEl.querySelector('.sec-dot');
+    if (sd) sd.style.background = filled ? 'var(--accent)' : '';
+    const sum = document.getElementById('sum-' + sec.key);
+    if (sum) sum.className = 'sum-cell' + (filled ? ' ok' : '');
+  });
+  updateSidebarDots();
+}
+
+function updateSidebarDots() {
+  if (!currentId) return;
+  const item = document.querySelector(`.sb-item[data-id="${currentId}"]`);
+  if (!item) return;
+  const dotsEl = item.querySelector('.sb-dots');
+  if (!dotsEl) return;
+  dotsEl.innerHTML = '';
+  SECTIONS.forEach(sec => {
+    const secEl = document.getElementById('sec-' + sec.key);
+    let filled = confData[sec.key] > 0;
+    if (secEl) secEl.querySelectorAll('input[type=text], textarea').forEach(el => { if (el.value && el.value.trim()) filled = true; });
+    const d = document.createElement('div');
+    d.className = 'sb-dot' + (filled ? ' ok' : '');
+    dotsEl.appendChild(d);
+  });
+}
+
+function gatherData() {
+  const d = {
+    company: v('f-company'), contact: v('f-contact'), role: v('f-role'),
+    date: v('f-date'), calltype: v('f-calltype'), stage: v('f-stage'),
+    nextsteps: v('f-nextsteps'), livenotes: v('f-livenotes'), conf: {...confData}, fields: {}
+  };
+  SECTIONS.forEach(sec => sec.fields.forEach(f => { d.fields[f.id] = v(f.id); }));
+  return d;
+}
+
+function populateForm(data) {
+  if (!data) { SECTIONS.forEach(s => { confData[s.key] = 0; }); buildPills(); return; }
+  sv('f-company', data.company); sv('f-contact', data.contact); sv('f-role', data.role);
+  sv('f-date', data.date); sv('f-calltype', data.calltype); sv('f-stage', data.stage);
+  sv('f-nextsteps', data.nextsteps); sv('f-livenotes', data.livenotes);
+  updateNotesChars();
+  if (data.conf) SECTIONS.forEach(s => { confData[s.key] = data.conf[s.key] || 0; });
+  else SECTIONS.forEach(s => { confData[s.key] = 0; });
+  if (data.fields) Object.entries(data.fields).forEach(([id, val]) => sv(id, val));
+  buildPills();
+  updateSumBar();
+}
+
+function onNotesInput() {
+  updateNotesChars();
+  autosave();
+}
+
+function updateNotesChars() {
+  const el = document.getElementById('f-livenotes');
+  const counter = document.getElementById('notes-chars');
+  if (el && counter) {
+    const len = el.value.length;
+    counter.textContent = len === 0 ? '0 characters' : len + ' character' + (len === 1 ? '' : 's');
+  }
+}
+
+function clearNotes() {
+  if (!confirm('Clear all live notes for this call?')) return;
+  sv('f-livenotes', '');
+  updateNotesChars();
+  autosave();
+}
+
+function v(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+function sv(id, val) { const el = document.getElementById(id); if (el) el.value = val || ''; }
+
+function autosave() {
+  const ss = document.getElementById('save-status');
+  if (ss) { ss.className = 'save-status'; ss.textContent = 'Saving...'; }
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    if (!currentId) return;
+    const data = gatherData();
+    saveCallData(currentId, data);
+    const idx = calls.findIndex(c => c.id === currentId);
+    if (idx >= 0) {
+      calls[idx].company = data.company || 'Unnamed';
+      calls[idx].contact = data.contact;
+      calls[idx].date = data.date;
+      calls[idx].stage = data.stage;
+      saveStorage();
+      renderSidebar();
+    }
+    if (ss) { ss.className = 'save-status saved'; ss.textContent = 'Saved'; }
+  }, 700);
+}
+
+function newCall() {
+  const id = 'c_' + Date.now();
+  calls.unshift({ id, company: 'New call', contact: '', date: '', stage: 'Prospecting' });
+  saveStorage();
+  openCall(id);
+}
+
+function openCall(id) {
+  currentId = id;
+  buildSections();
+  const data = loadCallData(id);
+  populateForm(data);
+  const entry = calls.find(c => c.id === id);
+  document.getElementById('form-heading').textContent = (entry && entry.company && entry.company !== 'New call') ? entry.company : 'New call';
+  document.getElementById('form-subheading').textContent = [entry && entry.contact, entry && entry.stage].filter(Boolean).join(' · ') || 'Fill as you go — saves automatically';
+  document.getElementById('main-empty').style.display = 'none';
+  document.getElementById('form-wrap').style.display = 'block';
+  renderSidebar();
+  // mobile
+  if (window.innerWidth <= 700) {
+    document.getElementById('sidebar').classList.add('hidden-mobile');
+    document.getElementById('main').classList.remove('hidden-mobile');
+  }
+}
+
+function backToList() {
+  document.getElementById('sidebar').classList.remove('hidden-mobile');
+  document.getElementById('main').classList.add('hidden-mobile');
+}
+
+function deleteCall() {
+  if (!currentId) return;
+  if (!confirm('Delete this call? This cannot be undone.')) return;
+  deleteCallData(currentId);
+  calls = calls.filter(c => c.id !== currentId);
+  saveStorage();
+  currentId = null;
+  document.getElementById('form-wrap').style.display = 'none';
+  document.getElementById('main-empty').style.display = 'flex';
+  renderSidebar();
+}
+
+function renderSidebar() {
+  const list = document.getElementById('sb-list');
+  const empty = document.getElementById('sb-empty');
+  if (calls.length === 0) { empty.style.display = 'block'; list.innerHTML = ''; list.appendChild(empty); return; }
+  empty.style.display = 'none';
+  list.innerHTML = '';
+  calls.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'sb-item' + (c.id === currentId ? ' active' : '');
+    div.dataset.id = c.id;
+    div.innerHTML = `
+      <div class="sb-item-company">${c.company || 'Unnamed'}</div>
+      <div class="sb-item-meta">${[c.contact, c.stage, c.date].filter(Boolean).join(' · ') || 'No details yet'}</div>
+      <div class="sb-dots">${Array(7).fill('<div class="sb-dot"></div>').join('')}</div>`;
+    div.onclick = () => openCall(c.id);
+    list.appendChild(div);
+  });
+  if (currentId) updateSidebarDots();
+}
+
+function copyCall() {
+  const lines = ['=== MEDDIC CALL NOTES ==='];
+  lines.push(`Company: ${v('f-company')}   Contact: ${v('f-contact')} (${v('f-role')})`);
+  lines.push(`Date: ${v('f-date')}   Stage: ${v('f-stage')}   Call: ${v('f-calltype')}`);
+  const ln = v('f-livenotes');
+  if (ln) { lines.push(''); lines.push('--- LIVE NOTES ---'); lines.push(ln); }
+  lines.push('');
+  SECTIONS.forEach(sec => {
+    const conf = confData[sec.key];
+    lines.push(`--- ${sec.label.toUpperCase()} (confidence: ${conf || '—'}/3) ---`);
+    sec.fields.forEach(f => { const val = v(f.id); if (val) lines.push(`${f.label}: ${val}`); });
+    lines.push('');
+  });
+  lines.push('--- NEXT STEPS ---');
+  lines.push(v('f-nextsteps'));
+  navigator.clipboard.writeText(lines.join('\n')).then(() => {
+    const ok = document.getElementById('copy-ok');
+    ok.style.display = 'block';
+    setTimeout(() => ok.style.display = 'none', 2500);
+  }).catch(() => { alert('Copy failed — try a different browser.'); });
+}
+
+// Init
+calls = loadStorage();
+renderSidebar();
+if (calls.length > 0) openCall(calls[0].id);
+</script>
+</body>
+</html>
