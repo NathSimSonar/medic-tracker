@@ -18,14 +18,12 @@
     --text: #f0f0f0;
     --text2: #999;
     --text3: #5a5a6e;
-    /* Sonar brand */
     --sonar-purple: #290042;
     --sonar-red: #d3121d;
     --accent: #d3121d;
     --accent-dim: rgba(211,18,29,0.10);
     --accent-border: rgba(211,18,29,0.35);
     --accent-hover: rgba(211,18,29,0.18);
-    /* semantic */
     --red: #f87171;
     --red-dim: rgba(248,113,113,0.1);
     --amber: #fbbf24;
@@ -46,7 +44,6 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.6; }
   body { min-height: 100vh; }
-  /* LAYOUT */
   .shell { display: flex; min-height: 100vh; }
   .sidebar { width: 280px; min-height: 100vh; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
   .main { flex: 1; overflow-y: auto; }
@@ -59,43 +56,32 @@
   .sb-title { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.2; }
   .sb-new { margin: 12px 16px; background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent); border-radius: var(--radius); padding: 9px 14px; font-size: 13px; font-family: 'Inter', sans-serif; cursor: pointer; width: calc(100% - 32px); display: flex; align-items: center; gap: 8px; transition: background 0.15s; font-weight: 500; }
   .sb-new:hover { background: var(--accent-hover); }
-
-  /* SECTION LABEL ROW — label + clear-all */
   .sb-section-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 6px; }
   .sb-section-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); font-family: 'Poppins', sans-serif; font-weight: 600; }
   .sb-clear-all { background: transparent; border: none; cursor: pointer; font-size: 10px; font-family: 'Poppins', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text3); display: flex; align-items: center; gap: 4px; padding: 2px 4px; border-radius: 4px; transition: color 0.12s, background 0.12s; }
   .sb-clear-all:hover { color: var(--red); background: var(--red-dim); }
   .sb-clear-all svg { width: 11px; height: 11px; }
-
   .sb-list { flex: 1; overflow-y: auto; padding-bottom: 16px; }
-
-  /* SIDEBAR ITEMS */
   .sb-item { padding: 10px 16px; cursor: pointer; border-left: 2px solid transparent; transition: all 0.12s; position: relative; }
   .sb-item:hover { background: var(--bg3); }
   .sb-item.active { background: var(--bg3); border-left-color: var(--sonar-red); }
-  /* Top row: company name + trash icon */
   .sb-item-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
   .sb-item-company { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; font-family: 'Poppins', sans-serif; }
   .sb-item-del { background: transparent; border: none; cursor: pointer; color: var(--text3); padding: 2px 3px; border-radius: 4px; display: flex; align-items: center; flex-shrink: 0; opacity: 0; transition: opacity 0.12s, color 0.12s, background 0.12s; }
   .sb-item-del svg { width: 13px; height: 13px; }
   .sb-item:hover .sb-item-del { opacity: 1; }
   .sb-item-del:hover { color: var(--red) !important; background: var(--red-dim); }
-
-  /* Date badge */
   .sb-item-date { font-size: 10px; font-family: 'DM Mono', monospace; color: #c084fc; opacity: 0.85; margin-top: 2px; letter-spacing: 0.03em; }
   .sb-item-date:empty { display: none; }
-
   .sb-item-meta { font-size: 11px; color: var(--text3); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sb-item.active .sb-item-meta { color: var(--text2); }
   .sb-dots { display: flex; gap: 3px; margin-top: 5px; }
   .sb-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--bg4); }
   .sb-dot.ok { background: var(--accent); }
   .sb-empty { padding: 24px 16px; text-align: center; color: var(--text3); font-size: 12px; line-height: 1.8; }
-  /* MAIN EMPTY */
   .main-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 12px; color: var(--text3); }
   .main-empty .big { font-size: 48px; }
   .main-empty p { font-size: 13px; }
-  /* FORM */
   .form-wrap { max-width: 760px; margin: 0 auto; padding: 32px 24px 80px; }
   .form-topbar { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; gap: 12px; flex-wrap: wrap; }
   .form-heading { font-size: 22px; font-weight: 600; color: var(--text); font-family: 'Poppins', sans-serif; }
@@ -105,8 +91,9 @@
   .btn:hover { background: var(--bg3); color: var(--text); }
   .btn.danger { color: var(--red); border-color: rgba(248,113,113,0.25); }
   .btn.danger:hover { background: var(--red-dim); }
+  .btn.accent { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
+  .btn.accent:hover { background: var(--accent-hover); }
   .btn svg { width: 14px; height: 14px; flex-shrink: 0; }
-  /* SUMBAR */
   .sumbar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 24px; }
   .sum-cell { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 6px; text-align: center; transition: border-color 0.2s; }
   .sum-cell.ok { border-color: var(--accent-border); background: var(--accent-dim); }
@@ -114,7 +101,6 @@
   .sum-cell.ok .sum-letter { color: var(--accent); }
   .sum-ind { width: 5px; height: 5px; border-radius: 50%; background: var(--bg4); margin: 5px auto 0; }
   .sum-cell.ok .sum-ind { background: var(--accent); }
-  /* META */
   .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 24px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; }
   .field label { display: block; font-size: 10px; letter-spacing: 0.07em; color: var(--text3); margin-bottom: 5px; font-family: 'Poppins', sans-serif; font-weight: 600; text-transform: uppercase; }
   .field input, .field select, .field textarea { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius); padding: 8px 10px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.12s; }
@@ -122,7 +108,6 @@
   .field select { appearance: none; cursor: pointer; }
   .field textarea { resize: vertical; min-height: 58px; line-height: 1.55; }
   .hint { font-size: 11px; color: var(--text3); margin-top: 4px; line-height: 1.5; font-style: italic; }
-  /* SECTIONS */
   .sec { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s; }
   .sec.has-data { border-color: var(--border2); }
   .sec-hdr { display: flex; align-items: center; gap: 12px; padding: 13px 16px; cursor: pointer; user-select: none; transition: background 0.12s; }
@@ -146,7 +131,6 @@
   .cpill.a1 { background: var(--red-dim); border-color: rgba(248,113,113,0.35); color: var(--red); }
   .cpill.a2 { background: var(--amber-dim); border-color: rgba(251,191,36,0.35); color: var(--amber); }
   .cpill.a3 { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
-  /* LIVE NOTES */
   .notes-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 24px; }
   .notes-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
   .notes-label { font-size: 11px; letter-spacing: 0.05em; color: var(--text3); font-family: 'DM Mono', monospace; text-transform: uppercase; display: flex; align-items: center; gap: 7px; }
@@ -154,7 +138,7 @@
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
   .notes-actions { display: flex; align-items: center; gap: 8px; }
   .notes-autofill { background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent); border-radius: var(--radius); padding: 5px 11px; font-size: 11px; font-family: 'Poppins', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.15s; white-space: nowrap; }
-  .notes-autofill:hover { background: rgba(74,222,128,0.22); }
+  .notes-autofill:hover { background: var(--accent-hover); }
   .notes-autofill svg { width: 12px; height: 12px; flex-shrink: 0; }
   .notes-autofill.success { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
   .notes-autofill.empty { background: transparent; border-color: var(--border2); color: var(--text3); }
@@ -166,15 +150,12 @@
   .notes-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
   .notes-chars { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
   .notes-hint { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; font-style: italic; }
-  /* NEXT STEPS */
   .nextsteps-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; margin-top: 10px; }
   .nextsteps-label { font-size: 11px; letter-spacing: 0.05em; color: var(--text3); margin-bottom: 10px; font-family: 'DM Mono', monospace; text-transform: uppercase; }
-  /* SAVE BAR */
   .save-bar { display: flex; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
   .save-status { font-size: 12px; color: var(--text3); font-family: 'DM Mono', monospace; }
   .save-status.saved { color: var(--accent); }
   .copy-ok { font-size: 12px; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 5px 10px; display: none; font-family: 'DM Mono', monospace; }
-  /* MOBILE */
   .mobile-back { display: none; }
   @media (max-width: 700px) {
     .shell { flex-direction: column; }
@@ -192,7 +173,6 @@
 </head>
 <body>
 <div class="shell" id="shell">
-  <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
     <div class="sb-header">
       <div class="sb-brand">
@@ -212,8 +192,6 @@
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
       New call
     </button>
-
-    <!-- SECTION LABEL ROW with Clear All -->
     <div class="sb-section-row">
       <span class="sb-section-label">Calls</span>
       <button class="sb-clear-all" onclick="deleteAllCalls()" title="Delete all calls">
@@ -221,12 +199,10 @@
         Clear all
       </button>
     </div>
-
     <div class="sb-list" id="sb-list">
       <div class="sb-empty" id="sb-empty">No calls yet.<br>Hit "New call" to start.</div>
     </div>
   </div>
-  <!-- MAIN -->
   <div class="main" id="main">
     <div class="main-empty" id="main-empty">
       <div class="big">&#9776;</div>
@@ -243,6 +219,10 @@
           <div class="form-subheading" id="form-subheading">Fill as you go — saves automatically</div>
         </div>
         <div class="topbar-actions">
+          <button class="btn accent" id="export-btn" onclick="exportToDocx()">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 13h8M8 2v8M5 7l3 3 3-3"/></svg>
+            Export .docx
+          </button>
           <button class="btn" onclick="copyCall()">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="8" height="9" rx="1"/><path d="M3 11V3a1 1 0 0 1 1-1h7"/></svg>
             Copy as text
@@ -253,7 +233,6 @@
           </button>
         </div>
       </div>
-      <!-- SUMBAR -->
       <div class="sumbar" id="sumbar">
         <div class="sum-cell" id="sum-M"><div class="sum-letter">M</div><div class="sum-ind"></div></div>
         <div class="sum-cell" id="sum-E"><div class="sum-letter">E</div><div class="sum-ind"></div></div>
@@ -263,7 +242,6 @@
         <div class="sum-cell" id="sum-C"><div class="sum-letter">C</div><div class="sum-ind"></div></div>
         <div class="sum-cell" id="sum-C2"><div class="sum-letter">C</div><div class="sum-ind"></div></div>
       </div>
-      <!-- META -->
       <div class="meta-grid">
         <div class="field"><label>Company</label><input type="text" id="f-company" placeholder="Acme Corp" oninput="autosave()"></div>
         <div class="field"><label>Contact</label><input type="text" id="f-contact" placeholder="Jane Smith" oninput="autosave()"></div>
@@ -280,7 +258,6 @@
           </select>
         </div>
       </div>
-      <!-- LIVE NOTES -->
       <div class="notes-wrap">
         <div class="notes-header">
           <div class="notes-label">
@@ -304,9 +281,7 @@
           <span class="notes-hint">Ctrl+Enter to auto-fill</span>
         </div>
       </div>
-      <!-- SECTIONS -->
       <div id="sections-wrap"></div>
-      <!-- NEXT STEPS -->
       <div class="nextsteps-wrap">
         <div class="nextsteps-label">Next steps &amp; owners</div>
         <div class="field">
@@ -383,45 +358,25 @@ const SECTIONS = [
 ];
 const FIELD_LABELS = {};
 SECTIONS.forEach(s => s.fields.forEach(f => { FIELD_LABELS[f.id] = f.label; }));
-
-let calls = [];
-let currentId = null;
-let saveTimer = null;
-let confData = {};
-
-// localStorage helpers
-function loadStorage() {
-  try { return JSON.parse(localStorage.getItem('meddic_calls') || '[]'); } catch(e) { return []; }
-}
-function saveStorage() {
-  localStorage.setItem('meddic_calls', JSON.stringify(calls));
-}
-function loadCallData(id) {
-  try { return JSON.parse(localStorage.getItem('meddic_call_' + id) || 'null'); } catch(e) { return null; }
-}
-function saveCallData(id, data) {
-  localStorage.setItem('meddic_call_' + id, JSON.stringify(data));
-}
-function deleteCallData(id) {
-  localStorage.removeItem('meddic_call_' + id);
-}
-
-// Build sections HTML
+let calls = [], currentId = null, saveTimer = null, confData = {};
+function loadStorage() { try { return JSON.parse(localStorage.getItem('meddic_calls') || '[]'); } catch(e) { return []; } }
+function saveStorage() { localStorage.setItem('meddic_calls', JSON.stringify(calls)); }
+function loadCallData(id) { try { return JSON.parse(localStorage.getItem('meddic_call_' + id) || 'null'); } catch(e) { return null; } }
+function saveCallData(id, data) { localStorage.setItem('meddic_call_' + id, JSON.stringify(data)); }
+function deleteCallData(id) { localStorage.removeItem('meddic_call_' + id); }
 function buildSections() {
   const wrap = document.getElementById('sections-wrap');
   wrap.innerHTML = '';
   SECTIONS.forEach(sec => {
     const div = document.createElement('div');
-    div.className = 'sec collapsed';
-    div.id = 'sec-' + sec.key;
+    div.className = 'sec collapsed'; div.id = 'sec-' + sec.key;
     let fieldsHTML = '';
     const fs = sec.fields;
     for (let i = 0; i < fs.length; i++) {
       const f = fs[i];
       if (!f.ta && fs[i+1] && !fs[i+1].ta && !f._p) {
         f._p = true; fs[i+1]._p = true;
-        fieldsHTML += `<div class="two-col">${fHTML(f, sec.key)}${fHTML(fs[i+1], sec.key)}</div>`;
-        i++;
+        fieldsHTML += `<div class="two-col">${fHTML(f,sec.key)}${fHTML(fs[i+1],sec.key)}</div>`; i++;
       } else { fieldsHTML += fHTML(f, sec.key); }
     }
     div.innerHTML = `
@@ -431,12 +386,8 @@ function buildSections() {
         <div class="sec-dot"></div>
         <svg class="sec-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><polyline points="2,4 6,8 10,4"/></svg>
       </div>
-      <div class="sec-body">
-        ${fieldsHTML}
-        <div class="conf-row">
-          <span class="conf-label">Confidence</span>
-          <div class="cpills" id="cpills-${sec.key}"></div>
-        </div>
+      <div class="sec-body">${fieldsHTML}
+        <div class="conf-row"><span class="conf-label">Confidence</span><div class="cpills" id="cpills-${sec.key}"></div></div>
       </div>`;
     wrap.appendChild(div);
   });
@@ -444,28 +395,18 @@ function buildSections() {
   buildPills();
 }
 function fHTML(f, key) {
-  const input = f.ta
-    ? `<textarea id="${f.id}" placeholder="${f.ph}" oninput="onField('${key}')"></textarea>`
+  const input = f.ta ? `<textarea id="${f.id}" placeholder="${f.ph}" oninput="onField('${key}')"></textarea>`
     : `<input type="text" id="${f.id}" placeholder="${f.ph}" oninput="onField('${key}')">`;
-  const hint = f.hint ? `<div class="hint">${f.hint}</div>` : '';
-  return `<div class="field"><label>${f.label}</label>${input}${hint}</div>`;
+  return `<div class="field"><label>${f.label}</label>${input}${f.hint ? `<div class="hint">${f.hint}</div>` : ''}</div>`;
 }
 function buildPills() {
   SECTIONS.forEach(sec => {
     confData[sec.key] = confData[sec.key] || 0;
-    const c = document.getElementById('cpills-' + sec.key);
-    if (!c) return;
-    c.innerHTML = '';
+    const c = document.getElementById('cpills-' + sec.key); if (!c) return; c.innerHTML = '';
     [1,2,3].forEach(v => {
       const b = document.createElement('button');
-      b.className = 'cpill' + (confData[sec.key] === v ? ' a'+v : '');
-      b.textContent = v;
-      b.onclick = () => {
-        confData[sec.key] = confData[sec.key] === v ? 0 : v;
-        buildPills();
-        updateSumBar();
-        autosave();
-      };
+      b.className = 'cpill' + (confData[sec.key] === v ? ' a'+v : ''); b.textContent = v;
+      b.onclick = () => { confData[sec.key] = confData[sec.key] === v ? 0 : v; buildPills(); updateSumBar(); autosave(); };
       c.appendChild(b);
     });
   });
@@ -474,41 +415,31 @@ function toggleSec(key) { document.getElementById('sec-' + key).classList.toggle
 function onField(key) { updateSumBar(); autosave(); }
 function updateSumBar() {
   SECTIONS.forEach(sec => {
-    const secEl = document.getElementById('sec-' + sec.key);
-    if (!secEl) return;
-    const inputs = secEl.querySelectorAll('input[type=text], textarea');
+    const secEl = document.getElementById('sec-' + sec.key); if (!secEl) return;
     let filled = confData[sec.key] > 0;
-    inputs.forEach(el => { if (el.value && el.value.trim()) filled = true; });
+    secEl.querySelectorAll('input[type=text], textarea').forEach(el => { if (el.value && el.value.trim()) filled = true; });
     secEl.className = 'sec' + (secEl.classList.contains('collapsed') ? ' collapsed' : '') + (filled ? ' has-data' : '');
-    const sd = secEl.querySelector('.sec-dot');
-    if (sd) sd.style.background = filled ? 'var(--accent)' : '';
-    const sum = document.getElementById('sum-' + sec.key);
-    if (sum) sum.className = 'sum-cell' + (filled ? ' ok' : '');
+    const sd = secEl.querySelector('.sec-dot'); if (sd) sd.style.background = filled ? 'var(--accent)' : '';
+    const sum = document.getElementById('sum-' + sec.key); if (sum) sum.className = 'sum-cell' + (filled ? ' ok' : '');
   });
   updateSidebarDots();
 }
 function updateSidebarDots() {
   if (!currentId) return;
-  const item = document.querySelector(`.sb-item[data-id="${currentId}"]`);
-  if (!item) return;
-  const dotsEl = item.querySelector('.sb-dots');
-  if (!dotsEl) return;
+  const item = document.querySelector(`.sb-item[data-id="${currentId}"]`); if (!item) return;
+  const dotsEl = item.querySelector('.sb-dots'); if (!dotsEl) return;
   dotsEl.innerHTML = '';
   SECTIONS.forEach(sec => {
     const secEl = document.getElementById('sec-' + sec.key);
     let filled = confData[sec.key] > 0;
     if (secEl) secEl.querySelectorAll('input[type=text], textarea').forEach(el => { if (el.value && el.value.trim()) filled = true; });
-    const d = document.createElement('div');
-    d.className = 'sb-dot' + (filled ? ' ok' : '');
-    dotsEl.appendChild(d);
+    const d = document.createElement('div'); d.className = 'sb-dot' + (filled ? ' ok' : ''); dotsEl.appendChild(d);
   });
 }
 function gatherData() {
-  const d = {
-    company: v('f-company'), contact: v('f-contact'), role: v('f-role'),
-    date: v('f-date'), calltype: v('f-calltype'), stage: v('f-stage'),
-    nextsteps: v('f-nextsteps'), livenotes: v('f-livenotes'), conf: {...confData}, fields: {}
-  };
+  const d = { company: v('f-company'), contact: v('f-contact'), role: v('f-role'), date: v('f-date'),
+    calltype: v('f-calltype'), stage: v('f-stage'), nextsteps: v('f-nextsteps'), livenotes: v('f-livenotes'),
+    conf: {...confData}, fields: {} };
   SECTIONS.forEach(sec => sec.fields.forEach(f => { d.fields[f.id] = v(f.id); }));
   return d;
 }
@@ -521,197 +452,72 @@ function populateForm(data) {
   if (data.conf) SECTIONS.forEach(s => { confData[s.key] = data.conf[s.key] || 0; });
   else SECTIONS.forEach(s => { confData[s.key] = 0; });
   if (data.fields) Object.entries(data.fields).forEach(([id, val]) => sv(id, val));
-  buildPills();
-  updateSumBar();
+  buildPills(); updateSumBar();
 }
-function onNotesInput() {
-  updateNotesChars();
-  autosave();
-}
-function onNotesKeyDown(e) {
-  if (e.ctrlKey && e.key === 'Enter') {
-    e.preventDefault();
-    autoFillFromNotes();
-  }
-}
+function onNotesInput() { updateNotesChars(); autosave(); }
+function onNotesKeyDown(e) { if (e.ctrlKey && e.key === 'Enter') { e.preventDefault(); autoFillFromNotes(); } }
 function updateNotesChars() {
-  const el = document.getElementById('f-livenotes');
-  const counter = document.getElementById('notes-chars');
-  if (el && counter) {
-    const len = el.value.length;
-    counter.textContent = len === 0 ? '0 characters' : len + ' character' + (len === 1 ? '' : 's');
-  }
+  const el = document.getElementById('f-livenotes'), counter = document.getElementById('notes-chars');
+  if (el && counter) { const len = el.value.length; counter.textContent = len === 0 ? '0 characters' : len + ' character' + (len === 1 ? '' : 's'); }
 }
 function clearNotes() {
   if (!confirm('Clear all live notes for this call?')) return;
-  sv('f-livenotes', '');
-  updateNotesChars();
-  autosave();
+  sv('f-livenotes', ''); updateNotesChars(); autosave();
 }
-
-// ─── AUTO-FILL FROM NOTES ────────────────────────────────────────────────────
 function autoFillFromNotes() {
   const notes = v('f-livenotes').trim();
   const btn = document.getElementById('autofill-btn');
-  if (!notes) {
-    flashBtn(btn, 'No notes to parse', 'empty');
-    return;
-  }
-
+  if (!notes) { flashBtn(btn, 'No notes to parse', 'empty'); return; }
   let filled = 0;
-
-  // Helper: set a field only if empty
-  function trySet(fieldId, value) {
-    const el = document.getElementById(fieldId);
-    if (el && value && !el.value.trim()) {
-      el.value = value.trim();
-      filled++;
-    }
-  }
-
-  // Helper: append to a field (textarea or input), with a newline separator
-  function appendTo(fieldId, value) {
-    const el = document.getElementById(fieldId);
-    if (el && value && value.trim()) {
-      const existing = el.value.trim();
-      el.value = existing ? existing + '\n' + value.trim() : value.trim();
-      filled++;
-    }
-  }
-
-  const lower = notes.toLowerCase();
-
-  // ── Split into sentences for classification ──
+  function trySet(fieldId, value) { const el = document.getElementById(fieldId); if (el && value && !el.value.trim()) { el.value = value.trim(); filled++; } }
+  function appendTo(fieldId, value) { const el = document.getElementById(fieldId); if (el && value && value.trim()) { const ex = el.value.trim(); el.value = ex ? ex + '\n' + value.trim() : value.trim(); filled++; } }
   const sentences = notes.match(/[^.!?\n]+[.!?\n]*/g) || notes.split('\n');
   const clean = s => s.trim().replace(/\s+/g, ' ');
-
-  // Buckets by MEDDIC section
-  const metricLines   = [];
-  const painLines     = [];
-  const processLines  = [];
-  const criteriaLines = [];
-  const ebLines       = [];
-  const champLines    = [];
-  const compLines     = [];
-
+  const metricLines=[], painLines=[], processLines=[], criteriaLines=[], ebLines=[], champLines=[], compLines=[];
   const execTitles = ['ceo','cfo','cto','coo','ciso','vp ','vice president','director','head of','president','founder','owner','chief'];
   const competitors = ['veracode','checkmarx','github advanced security','ghas','snyk','fortify','blackduck','mend','semgrep','coverity','sonatype','aqua','prisma'];
-
   sentences.forEach(raw => {
-    const s = clean(raw);
-    if (!s || s.length < 4) return;
-    const sl = s.toLowerCase();
-
-    // Metrics — numbers, money, team size, goals
-    if (/\$|€|£|\d+\s*k\b|\d+\s*m\b|\d+ million|\bbudget\b|\barr\b|\bmrr\b|\bdeal\b|\bheadcount\b|\b\d+\s*(dev|engineer|user|seat)|\bsave\b|\bcost\b|\bper (year|month|week|day|sprint)\b|\bann?ually\b|\bokr\b|\bgoal\b|\bobjective\b/.test(sl)) {
-      metricLines.push(s);
-    }
-
-    // Identify Pain — problems, frustrations, incidents
-    if (/\bpain\b|\bproblem\b|\bissue\b|\bchallenge\b|\bdifficult\b|\bslow\b|\bmanual\b|\bbroken\b|\bfailing\b|\bincident\b|\bbreach\b|\bfrustrat\b|\bbottleneck\b|\bstruggle\b|\brisk\b|\bvulner|\blegacy\b|\btechnical debt\b|\bcan'?t\b|\bcannot\b/.test(sl)) {
-      painLines.push(s);
-    }
-
-    // Decision Process — timelines, approvals, trials
-    if (/\bprocess\b|\btimeline\b|\bapproval\b|\bsign.off\b|\btrial\b|\bpoc\b|\bpilot\b|\blegal\b|\bprocurement\b|\beval(uation)?\b|\bdeadline\b|\bclose(s)? (in|by)\b|\bq[1-4]\b|\bquarter\b|\bweeks?\b|\bmonths?\b|\bby end\b|\bblocked?\b/.test(sl)) {
-      processLines.push(s);
-    }
-
-    // Decision Criteria — requirements, must-haves
-    if (/\bneed\b|\brequire\b|\bmust\b|\bimportant\b|\bpriority\b|\bcritical\b|\blooking for\b|\bcare about\b|\bcriteria\b|\bfeature\b|\bintegration\b|\bcompliance\b|\bperformance\b|\bsupport\b|\bonboarding\b|\bnon.negotiable\b/.test(sl)) {
-      criteriaLines.push(s);
-    }
-
-    // Economic Buyer — exec titles
-    if (execTitles.some(t => sl.includes(t))) {
-      ebLines.push(s);
-    }
-
-    // Champion — internal advocates
-    if (/\bchampion\b|\bsponsor\b|\badvocate\b|\binternal\b|\bpush(ing)? for\b|\bsell(ing)? internally\b|\bally\b|\bour (guy|person|contact)\b/.test(sl)) {
-      champLines.push(s);
-    }
-
-    // Competition — known names or comparison language
-    if (competitors.some(c => sl.includes(c)) || /\bcompetitor\b|\bcompeting\b|\balso looking\b|\bcomparing\b|\balternative\b|\bversus\b|\brfp\b|\bshortlist\b|\bbakeoff\b|\bbake-off\b|\bvs\.?\s/.test(sl)) {
-      compLines.push(s);
-    }
+    const s = clean(raw); if (!s || s.length < 4) return; const sl = s.toLowerCase();
+    if (/\$|€|£|\d+\s*k\b|\d+\s*m\b|\d+ million|\bbudget\b|\barr\b|\bmrr\b|\bdeal\b|\bheadcount\b|\b\d+\s*(dev|engineer|user|seat)|\bsave\b|\bcost\b|\bper (year|month|week|day|sprint)\b|\bann?ually\b|\bokr\b|\bgoal\b|\bobjective\b/.test(sl)) metricLines.push(s);
+    if (/\bpain\b|\bproblem\b|\bissue\b|\bchallenge\b|\bdifficult\b|\bslow\b|\bmanual\b|\bbroken\b|\bfailing\b|\bincident\b|\bbreach\b|\bfrustrat\b|\bbottleneck\b|\bstruggle\b|\brisk\b|\bvulner|\blegacy\b|\btechnical debt\b|\bcan'?t\b|\bcannot\b/.test(sl)) painLines.push(s);
+    if (/\bprocess\b|\btimeline\b|\bapproval\b|\bsign.off\b|\btrial\b|\bpoc\b|\bpilot\b|\blegal\b|\bprocurement\b|\beval(uation)?\b|\bdeadline\b|\bclose(s)? (in|by)\b|\bq[1-4]\b|\bquarter\b|\bweeks?\b|\bmonths?\b|\bby end\b|\bblocked?\b/.test(sl)) processLines.push(s);
+    if (/\bneed\b|\brequire\b|\bmust\b|\bimportant\b|\bpriority\b|\bcritical\b|\blooking for\b|\bcare about\b|\bcriteria\b|\bfeature\b|\bintegration\b|\bcompliance\b|\bperformance\b|\bsupport\b|\bonboarding\b|\bnon.negotiable\b/.test(sl)) criteriaLines.push(s);
+    if (execTitles.some(t => sl.includes(t))) ebLines.push(s);
+    if (/\bchampion\b|\bsponsor\b|\badvocate\b|\binternal\b|\bpush(ing)? for\b|\bsell(ing)? internally\b|\bally\b|\bour (guy|person|contact)\b/.test(sl)) champLines.push(s);
+    if (competitors.some(c => sl.includes(c)) || /\bcompetitor\b|\bcompeting\b|\balso looking\b|\bcomparing\b|\balternative\b|\bversus\b|\brfp\b|\bshortlist\b|\bbakeoff\b|\bbake-off\b|\bvs\.?\s/.test(sl)) compLines.push(s);
   });
-
   function unique(arr) { return [...new Set(arr)]; }
-
-  // ── Fill MEDDIC sections ──
-  if (metricLines.length)  { appendTo('m-waste',    unique(metricLines).join('\n'));   openSec('M'); }
-  if (painLines.length)    { appendTo('ip-pain',    unique(painLines).join('\n'));     openSec('I'); }
-  if (processLines.length) { appendTo('dp-process', unique(processLines).join('\n')); openSec('D'); }
-  if (criteriaLines.length){ appendTo('dc-factors', unique(criteriaLines).join('\n'));openSec('D2'); }
-  if (ebLines.length)      { appendTo('e-cares',    unique(ebLines).join('\n'));       openSec('E'); }
-  if (champLines.length)   { appendTo('ch-name',    unique(champLines).join('\n'));    openSec('C'); }
-  if (compLines.length)    { appendTo('comp-lean',  unique(compLines).join('\n'));     openSec('C2'); }
-
-  // ── Specific pattern extractions for single fields ──
-
-  // Deal / budget value
-  const budgetMatch = notes.match(/(?:\$|€|£)\s*[\d,.]+(?:\s*[kKmMbB])?|\b\d[\d,.]*\s*(?:k|K|m|M)\s*(?:dollars?|euros?|pounds?|USD|EUR|GBP)\b|\b\d[\d,.]*\s*(?:dollars?|euros?|pounds?|USD|EUR|GBP)\b/i);
+  if (metricLines.length)  { appendTo('m-waste',    unique(metricLines).join('\n'));    openSec('M'); }
+  if (painLines.length)    { appendTo('ip-pain',    unique(painLines).join('\n'));      openSec('I'); }
+  if (processLines.length) { appendTo('dp-process', unique(processLines).join('\n'));  openSec('D'); }
+  if (criteriaLines.length){ appendTo('dc-factors', unique(criteriaLines).join('\n')); openSec('D2'); }
+  if (ebLines.length)      { appendTo('e-cares',    unique(ebLines).join('\n'));        openSec('E'); }
+  if (champLines.length)   { appendTo('ch-name',    unique(champLines).join('\n'));     openSec('C'); }
+  if (compLines.length)    { appendTo('comp-lean',  unique(compLines).join('\n'));      openSec('C2'); }
+  const budgetMatch = notes.match(/(?:\$|€|£)\s*[\d,.]+(?:\s*[kKmMbB])?|\b\d[\d,.]*\s*(?:k|K|m|M)\s*(?:dollars?|euros?|pounds?|USD|EUR|GBP)\b/i);
   if (budgetMatch) trySet('m-dealval', budgetMatch[0]);
-
-  // Team / dev count
-  const teamMatch = notes.match(/\b(\d+)\s*(?:developer|devs?|engineer|engineer|people|user|seat|employee)/i);
+  const teamMatch = notes.match(/\b(\d+)\s*(?:developer|devs?|engineer|people|user|seat|employee)/i);
   if (teamMatch) trySet('m-team', teamMatch[0]);
-
-  // Close date
   const closeMatch = notes.match(/(?:close(?:s|d)?|by|before|end of|target(?:ing)?)\s+(?:Q[1-4]\s*\d{0,4}|\w+ \d{4}|next \w+|\d+\s*\w+)/i);
   if (closeMatch) trySet('dp-close', closeMatch[0]);
-
-  // Blockers
   const blockerMatch = notes.match(/(?:block(?:er|ed|ing)?|wait(?:ing)? on|stuck on|depend(?:s|ency)? on)[^.!?\n]{3,60}/i);
   if (blockerMatch) trySet('dp-blockers', blockerMatch[0].trim());
-
-  // EB name + title (e.g. "John Smith, CEO" or "CEO John Smith")
   const ebNameMatch = notes.match(/\b([A-Z][a-zé-]+ (?:[A-Z][a-zé-]+ )?[A-Z][a-zé-]+)\s*[,\-–]\s*(?:CEO|CFO|CTO|CIO|CISO|VP|Director|Head of|President|Founder)/);
-  if (!ebNameMatch) {
-    // Try reversed: "CEO John Smith"
-    const reversed = notes.match(/\b(?:CEO|CFO|CTO|CIO|CISO|VP|Director|Head of|President|Founder)\s+([A-Z][a-zé-]+ (?:[A-Z][a-zé-]+ )?[A-Z][a-zé-]+)/);
-    if (reversed) trySet('e-name', reversed[0]);
-  } else {
-    trySet('e-name', ebNameMatch[0]);
-  }
-
-  // Company name: "at Acme" / "from Acme" / "Acme is" / "Acme Corp"
-  const companyMatch = notes.match(/(?:^|\bat\s+|from\s+|with\s+|for\s+)([A-Z][A-Za-z0-9&\s]{2,30}?)(?=\s+(?:is|are|has|have|they|we|the|\.))/m);
-  if (companyMatch && companyMatch[1]) trySet('f-company', companyMatch[1].trim());
-
-  // Competitor names
-  const foundComps = competitors.filter(c => lower.includes(c)).map(c => c.charAt(0).toUpperCase() + c.slice(1));
+  if (!ebNameMatch) { const rev = notes.match(/\b(?:CEO|CFO|CTO|CIO|CISO|VP|Director|Head of|President|Founder)\s+([A-Z][a-zé-]+ (?:[A-Z][a-zé-]+ )?[A-Z][a-zé-]+)/); if (rev) trySet('e-name', rev[0]); }
+  else trySet('e-name', ebNameMatch[0]);
+  const foundComps = competitors.filter(c => notes.toLowerCase().includes(c)).map(c => c.charAt(0).toUpperCase() + c.slice(1));
   if (foundComps.length) trySet('comp-names', foundComps.join(', '));
-
-  // Urgency / why now
   const urgencyMatch = notes.match(/(?:urgent|mandate|incident|breach|board|deadline|can't wait|must act|pressure|burning|forcing)[^.!?\n]{3,120}/i);
   if (urgencyMatch) trySet('ip-urgency', urgencyMatch[0].trim());
-
-  // ── Update UI ──
-  updateSumBar();
-  autosave();
+  updateSumBar(); autosave();
   flashBtn(btn, filled > 0 ? `${filled} field${filled > 1 ? 's' : ''} filled` : 'Nothing matched', filled > 0 ? 'success' : 'empty');
 }
-
-function openSec(key) {
-  const sec = document.getElementById('sec-' + key);
-  if (sec) sec.classList.remove('collapsed');
-}
-
+function openSec(key) { const sec = document.getElementById('sec-' + key); if (sec) sec.classList.remove('collapsed'); }
 function flashBtn(btn, message, state) {
-  const original = btn.innerHTML;
-  const originalClass = btn.className;
-  btn.textContent = message;
-  btn.className = 'notes-autofill ' + state;
-  setTimeout(() => {
-    btn.innerHTML = original;
-    btn.className = originalClass;
-  }, 2500);
+  const original = btn.innerHTML, originalClass = btn.className;
+  btn.textContent = message; btn.className = 'notes-autofill ' + state;
+  setTimeout(() => { btn.innerHTML = original; btn.className = originalClass; }, 2500);
 }
-// ─────────────────────────────────────────────────────────────────────────────
-
 function v(id) { const el = document.getElementById(id); return el ? el.value : ''; }
 function sv(id, val) { const el = document.getElementById(id); if (el) el.value = val || ''; }
 function autosave() {
@@ -720,95 +526,52 @@ function autosave() {
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     if (!currentId) return;
-    const data = gatherData();
-    saveCallData(currentId, data);
+    const data = gatherData(); saveCallData(currentId, data);
     const idx = calls.findIndex(c => c.id === currentId);
-    if (idx >= 0) {
-      calls[idx].company = data.company || 'Unnamed';
-      calls[idx].contact = data.contact;
-      calls[idx].date = data.date;
-      calls[idx].stage = data.stage;
-      saveStorage();
-      renderSidebar();
-    }
+    if (idx >= 0) { calls[idx].company = data.company || 'Unnamed'; calls[idx].contact = data.contact; calls[idx].date = data.date; calls[idx].stage = data.stage; saveStorage(); renderSidebar(); }
     if (ss) { ss.className = 'save-status saved'; ss.textContent = 'Saved'; }
   }, 700);
 }
 function newCall() {
   const id = 'c_' + Date.now();
   calls.unshift({ id, company: 'New call', contact: '', date: '', stage: 'Prospecting' });
-  saveStorage();
-  openCall(id);
+  saveStorage(); openCall(id);
 }
 function openCall(id) {
-  currentId = id;
-  buildSections();
-  const data = loadCallData(id);
-  populateForm(data);
+  currentId = id; buildSections();
+  const data = loadCallData(id); populateForm(data);
   const entry = calls.find(c => c.id === id);
   document.getElementById('form-heading').textContent = (entry && entry.company && entry.company !== 'New call') ? entry.company : 'New call';
   document.getElementById('form-subheading').textContent = [entry && entry.contact, entry && entry.stage].filter(Boolean).join(' · ') || 'Fill as you go — saves automatically';
   document.getElementById('main-empty').style.display = 'none';
   document.getElementById('form-wrap').style.display = 'block';
   renderSidebar();
-  if (window.innerWidth <= 700) {
-    document.getElementById('sidebar').classList.add('hidden-mobile');
-    document.getElementById('main').classList.remove('hidden-mobile');
-  }
+  if (window.innerWidth <= 700) { document.getElementById('sidebar').classList.add('hidden-mobile'); document.getElementById('main').classList.remove('hidden-mobile'); }
 }
-function backToList() {
-  document.getElementById('sidebar').classList.remove('hidden-mobile');
-  document.getElementById('main').classList.add('hidden-mobile');
-}
-
-// ─── DELETE FUNCTIONS ─────────────────────────────────────────────────────────
+function backToList() { document.getElementById('sidebar').classList.remove('hidden-mobile'); document.getElementById('main').classList.add('hidden-mobile'); }
 function deleteCall() {
   if (!currentId) return;
   if (!confirm('Delete this call? This cannot be undone.')) return;
-  deleteCallData(currentId);
-  calls = calls.filter(c => c.id !== currentId);
-  saveStorage();
-  currentId = null;
-  document.getElementById('form-wrap').style.display = 'none';
-  document.getElementById('main-empty').style.display = 'flex';
-  renderSidebar();
+  deleteCallData(currentId); calls = calls.filter(c => c.id !== currentId); saveStorage();
+  currentId = null; document.getElementById('form-wrap').style.display = 'none'; document.getElementById('main-empty').style.display = 'flex'; renderSidebar();
 }
-
 function deleteSingleCall(id, e) {
-  e.stopPropagation(); // don't open the call
+  e.stopPropagation();
   const entry = calls.find(c => c.id === id);
-  const name = (entry && entry.company) ? entry.company : 'this call';
-  if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
-  deleteCallData(id);
-  calls = calls.filter(c => c.id !== id);
-  saveStorage();
-  if (currentId === id) {
-    currentId = null;
-    document.getElementById('form-wrap').style.display = 'none';
-    document.getElementById('main-empty').style.display = 'flex';
-  }
+  if (!confirm(`Delete "${(entry && entry.company) || 'this call'}"? This cannot be undone.`)) return;
+  deleteCallData(id); calls = calls.filter(c => c.id !== id); saveStorage();
+  if (currentId === id) { currentId = null; document.getElementById('form-wrap').style.display = 'none'; document.getElementById('main-empty').style.display = 'flex'; }
   renderSidebar();
 }
-
 function deleteAllCalls() {
   if (calls.length === 0) return;
   if (!confirm(`Delete all ${calls.length} call${calls.length > 1 ? 's' : ''}? This cannot be undone.`)) return;
-  calls.forEach(c => deleteCallData(c.id));
-  calls = [];
-  saveStorage();
-  currentId = null;
-  document.getElementById('form-wrap').style.display = 'none';
-  document.getElementById('main-empty').style.display = 'flex';
-  renderSidebar();
+  calls.forEach(c => deleteCallData(c.id)); calls = []; saveStorage();
+  currentId = null; document.getElementById('form-wrap').style.display = 'none'; document.getElementById('main-empty').style.display = 'flex'; renderSidebar();
 }
-// ─────────────────────────────────────────────────────────────────────────────
-
-// ─── DATE HELPERS ─────────────────────────────────────────────────────────────
 function formatDateLabel(dateStr) {
   if (!dateStr || !dateStr.trim()) return '';
-  // Try to parse the date string (handles "12 May 2026", "2026-05-12", "May 12 2026", etc.)
-  const d = new Date(dateStr);
-  if (isNaN(d.getTime())) return dateStr; // return as-is if unparseable
+  const d = new Date(dateStr); if (isNaN(d.getTime())) return dateStr;
   const today = new Date(); today.setHours(0,0,0,0);
   const yesterday = new Date(today); yesterday.setDate(today.getDate() - 1);
   const target = new Date(d); target.setHours(0,0,0,0);
@@ -816,50 +579,29 @@ function formatDateLabel(dateStr) {
   if (target.getTime() === yesterday.getTime()) return 'Yesterday';
   return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: target.getFullYear() !== today.getFullYear() ? 'numeric' : undefined });
 }
-// ─────────────────────────────────────────────────────────────────────────────
-
 function renderSidebar() {
-  const list = document.getElementById('sb-list');
-  const empty = document.getElementById('sb-empty');
-  if (calls.length === 0) {
-    empty.style.display = 'block';
-    list.innerHTML = '';
-    list.appendChild(empty);
-    return;
-  }
-  empty.style.display = 'none';
-  list.innerHTML = '';
+  const list = document.getElementById('sb-list'), empty = document.getElementById('sb-empty');
+  if (calls.length === 0) { empty.style.display = 'block'; list.innerHTML = ''; list.appendChild(empty); return; }
+  empty.style.display = 'none'; list.innerHTML = '';
   calls.forEach(c => {
     const div = document.createElement('div');
-    div.className = 'sb-item' + (c.id === currentId ? ' active' : '');
-    div.dataset.id = c.id;
-
+    div.className = 'sb-item' + (c.id === currentId ? ' active' : ''); div.dataset.id = c.id;
     const dateLabel = formatDateLabel(c.date);
-    // meta: contact + stage (date is shown separately)
     const metaParts = [c.contact, c.stage].filter(Boolean);
-
     div.innerHTML = `
       <div class="sb-item-top">
         <div class="sb-item-company">${c.company || 'Unnamed'}</div>
         <button class="sb-item-del" title="Delete call" onclick="deleteSingleCall('${c.id}', event)">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-            <polyline points="2,4 14,4"/>
-            <path d="M5 4V2h6v2"/>
-            <path d="M6 7v5M10 7v5"/>
-            <path d="M3 4l1 9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-9"/>
-          </svg>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,4 14,4"/><path d="M5 4V2h6v2"/><path d="M6 7v5M10 7v5"/><path d="M3 4l1 9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-9"/></svg>
         </button>
       </div>
       ${dateLabel ? `<div class="sb-item-date">${dateLabel}</div>` : ''}
       <div class="sb-item-meta">${metaParts.join(' · ') || 'No details yet'}</div>
       <div class="sb-dots">${Array(7).fill('<div class="sb-dot"></div>').join('')}</div>`;
-
-    div.onclick = () => openCall(c.id);
-    list.appendChild(div);
+    div.onclick = () => openCall(c.id); list.appendChild(div);
   });
   if (currentId) updateSidebarDots();
 }
-
 function copyCall() {
   const lines = ['=== MEDDIC CALL NOTES ==='];
   lines.push(`Company: ${v('f-company')}   Contact: ${v('f-contact')} (${v('f-role')})`);
@@ -873,18 +615,154 @@ function copyCall() {
     sec.fields.forEach(f => { const val = v(f.id); if (val) lines.push(`${f.label}: ${val}`); });
     lines.push('');
   });
-  lines.push('--- NEXT STEPS ---');
-  lines.push(v('f-nextsteps'));
+  lines.push('--- NEXT STEPS ---'); lines.push(v('f-nextsteps'));
   navigator.clipboard.writeText(lines.join('\n')).then(() => {
-    const ok = document.getElementById('copy-ok');
-    ok.style.display = 'block';
-    setTimeout(() => ok.style.display = 'none', 2500);
+    const ok = document.getElementById('copy-ok'); ok.style.display = 'block'; setTimeout(() => ok.style.display = 'none', 2500);
   }).catch(() => { alert('Copy failed — try a different browser.'); });
 }
+async function exportToDocx() {
+  if (!currentId) { alert('Open a call first, then export it.'); return; }
+  const btn = document.getElementById('export-btn');
+  const origHTML = btn.innerHTML;
+  btn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="8" cy="8" r="6" stroke-dasharray="30" stroke-dashoffset="10"><animateTransform attributeName="transform" type="rotate" from="0 8 8" to="360 8 8" dur="0.8s" repeatCount="indefinite"/></circle></svg> Generating…';
+  btn.disabled = true;
+  try {
+    if (!window.docx) {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://unpkg.com/docx@8.5.0/build/index.js';
+        s.onload = resolve;
+        s.onerror = () => reject(new Error('Could not load docx library. Check your internet connection.'));
+        document.head.appendChild(s);
+      });
+    }
+    const { Document, Packer, Paragraph, TextRun, BorderStyle, AlignmentType } = window.docx;
+    const data = gatherData();
+    const children = [];
+    const BS = BorderStyle;
+    const leftBorder = (hexColor, size) => ({ left: { style: BS.THICK, size: size || 20, color: hexColor, space: 8 } });
+    const para = (runs, opts) => new Paragraph({ children: runs.map(r => new TextRun(r)), ...(opts || {}) });
+    const gap = (after) => new Paragraph({ children: [], spacing: { after: after || 160 } });
 
-// Init
-calls = loadStorage();
-renderSidebar();
+    // ── Title block ──
+    children.push(para([{ text: data.company || 'Unnamed Call', font: 'Arial', size: 52, bold: true, color: '150020' }], { spacing: { after: 80 } }));
+    children.push(para([{ text: 'MEDDIC Call Report', font: 'Arial', size: 28, color: '7a6a8a' }], { spacing: { after: 60 } }));
+    if (data.contact || data.role) {
+      children.push(para([{ text: [data.contact, data.role].filter(Boolean).join('  ·  '), font: 'Arial', size: 22, color: '444455' }], { spacing: { after: 50 } }));
+    }
+    const metaParts = [data.date, data.calltype, data.stage].filter(Boolean);
+    if (metaParts.length) {
+      children.push(para([{ text: metaParts.join('  ·  '), font: 'Arial', size: 20, color: '999aaa', italics: true }], { spacing: { after: 0 } }));
+    }
+    // Horizontal rule
+    children.push(new Paragraph({ border: { bottom: { style: BS.SINGLE, size: 4, color: 'ddd0ee', space: 1 } }, spacing: { before: 200, after: 280 }, children: [] }));
+
+    // ── Live Notes ──
+    if (data.livenotes && data.livenotes.trim()) {
+      children.push(para([{ text: 'Live Notes', font: 'Arial', size: 26, bold: true, color: '290042' }], { spacing: { after: 120 } }));
+      data.livenotes.split('\n').forEach(line => {
+        children.push(para([{ text: line || ' ', font: 'Arial', size: 22, color: '2a2a3a' }], { spacing: { after: 60 } }));
+      });
+      children.push(gap(200));
+    }
+
+    // ── MEDDIC sections ──
+    const colorMap = { M:'5c9fea', E:'e6a817', D:'3bc47a', D2:'26b8a8', I:'e85fa8', C:'9b72e8', C2:'f07828' };
+    SECTIONS.forEach(sec => {
+      const hexColor = colorMap[sec.key] || '888888';
+      const filledFields = sec.fields.filter(f => data.fields[f.id] && data.fields[f.id].trim());
+      const conf = data.conf && data.conf[sec.key];
+      if (!filledFields.length && !conf) return;
+
+      // Section label
+      children.push(new Paragraph({
+        border: leftBorder(hexColor, 24),
+        indent: { left: 320 },
+        spacing: { after: 100 },
+        children: [new TextRun({ text: sec.label, font: 'Arial', size: 26, bold: true, color: hexColor })]
+      }));
+
+      filledFields.forEach(f => {
+        const val = data.fields[f.id];
+        // Field label
+        children.push(new Paragraph({
+          border: leftBorder(hexColor, 16),
+          indent: { left: 480 },
+          spacing: { after: 30 },
+          children: [new TextRun({ text: f.label, font: 'Arial', size: 18, bold: true, color: '666677' })]
+        }));
+        // Field value lines
+        const lines = val.split('\n');
+        lines.forEach((line, i) => {
+          children.push(new Paragraph({
+            border: leftBorder(hexColor, 16),
+            indent: { left: 480 },
+            spacing: { after: i === lines.length - 1 ? 100 : 40 },
+            children: [new TextRun({ text: line || ' ', font: 'Arial', size: 22, color: '1a1a2e' })]
+          }));
+        });
+      });
+
+      // Confidence
+      if (conf) {
+        const labels = ['', 'Low', 'Medium', 'High'];
+        children.push(new Paragraph({
+          border: leftBorder(hexColor, 12),
+          indent: { left: 480 },
+          spacing: { after: 200 },
+          children: [
+            new TextRun({ text: 'Confidence: ', font: 'Arial', size: 18, bold: true, color: '999aaa' }),
+            new TextRun({ text: labels[conf] + ' (' + conf + '/3)', font: 'Arial', size: 18, color: '999aaa', italics: true })
+          ]
+        }));
+      } else {
+        children.push(gap(200));
+      }
+    });
+
+    // ── Next Steps ──
+    if (data.nextsteps && data.nextsteps.trim()) {
+      children.push(new Paragraph({ border: { bottom: { style: BS.SINGLE, size: 2, color: 'ddd0ee', space: 1 } }, spacing: { before: 0, after: 240 }, children: [] }));
+      children.push(para([{ text: 'Next Steps & Owners', font: 'Arial', size: 26, bold: true, color: '290042' }], { spacing: { after: 120 } }));
+      data.nextsteps.split('\n').forEach(line => {
+        children.push(para([{ text: (line && line.trim()) || ' ', font: 'Arial', size: 22, color: '2a2a3a' }], { spacing: { after: 60 } }));
+      });
+    }
+
+    // ── Footer ──
+    const stamp = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    children.push(new Paragraph({
+      alignment: AlignmentType.RIGHT,
+      spacing: { before: 440 },
+      children: [new TextRun({ text: 'Generated by SonarSource MEDDIC Tracker  ·  ' + stamp, font: 'Arial', size: 18, italics: true, color: 'bbbbcc' })]
+    }));
+
+    const doc = new Document({
+      sections: [{
+        properties: { page: { size: { width: 12240, height: 15840 }, margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 } } },
+        children
+      }]
+    });
+
+    const blob = await Packer.toBlob(doc);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const safeName = (data.company || 'Call').replace(/[^a-z0-9]/gi, '_');
+    const safeDate = (data.date || new Date().toISOString().slice(0, 10)).replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '');
+    a.download = 'MEDDIC_' + safeName + '_' + safeDate + '.docx';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+  } catch (err) {
+    console.error(err);
+    alert('Export failed: ' + err.message);
+  } finally {
+    btn.innerHTML = origHTML;
+    btn.disabled = false;
+  }
+}
+calls = loadStorage(); renderSidebar();
 if (calls.length > 0) openCall(calls[0].id);
 </script>
 </body>
