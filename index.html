@@ -5,33 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MEDDIC Call Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0c0010;
-    --bg2: #120019;
-    --bg3: #1a0026;
-    --bg4: #230033;
+    --bg: #0f0f0f;
+    --bg2: #171717;
+    --bg3: #1e1e1e;
+    --bg4: #252525;
     --border: rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.13);
+    --border2: rgba(255,255,255,0.12);
     --text: #f0f0f0;
-    --text2: #999;
-    --text3: #5a5a6e;
-    --sonar-purple: #290042;
-    --sonar-red: #d3121d;
-    --accent: #d3121d;
-    --accent-dim: rgba(211,18,29,0.10);
-    --accent-border: rgba(211,18,29,0.35);
-    --accent-hover: rgba(211,18,29,0.18);
+    --text2: #888;
+    --text3: #555;
+    --accent: #4ade80;
+    --accent-dim: rgba(74,222,128,0.12);
+    --accent-border: rgba(74,222,128,0.3);
     --red: #f87171;
     --red-dim: rgba(248,113,113,0.1);
     --amber: #fbbf24;
     --amber-dim: rgba(251,191,36,0.1);
     --blue: #60a5fa;
     --blue-dim: rgba(96,165,250,0.1);
-    --purple: #c084fc;
-    --purple-dim: rgba(192,132,252,0.1);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.1);
     --teal: #2dd4bf;
     --teal-dim: rgba(45,212,191,0.1);
     --coral: #fb923c;
@@ -42,79 +38,80 @@
     --radius-lg: 12px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.6; }
+  html { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.6; }
   body { min-height: 100vh; }
+
+  /* LAYOUT */
   .shell { display: flex; min-height: 100vh; }
   .sidebar { width: 280px; min-height: 100vh; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
   .main { flex: 1; overflow-y: auto; }
+
   /* SIDEBAR */
-  .sb-header { padding: 18px 16px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); background: linear-gradient(160deg, #290042 0%, #1a0028 60%, #120019 100%); }
-  .sb-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .sb-mark { width: 28px; height: 28px; flex-shrink: 0; }
-  .sb-brand-text { display: flex; flex-direction: column; }
-  .sb-logo { font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; color: rgba(255,255,255,0.5); text-transform: uppercase; line-height: 1.2; }
-  .sb-title { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.2; }
-  .sb-new { margin: 12px 16px; background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent); border-radius: var(--radius); padding: 9px 14px; font-size: 13px; font-family: 'Inter', sans-serif; cursor: pointer; width: calc(100% - 32px); display: flex; align-items: center; gap: 8px; transition: background 0.15s; font-weight: 500; }
-  .sb-new:hover { background: var(--accent-hover); }
-  .sb-section-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 6px; }
-  .sb-section-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); font-family: 'Poppins', sans-serif; font-weight: 600; }
-  .sb-clear-all { background: transparent; border: none; cursor: pointer; font-size: 10px; font-family: 'Poppins', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text3); display: flex; align-items: center; gap: 4px; padding: 2px 4px; border-radius: 4px; transition: color 0.12s, background 0.12s; }
-  .sb-clear-all:hover { color: var(--red); background: var(--red-dim); }
-  .sb-clear-all svg { width: 11px; height: 11px; }
+  .sb-header { padding: 20px 16px 16px; border-bottom: 1px solid var(--border); }
+  .sb-logo { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 2px; }
+  .sb-title { font-size: 16px; font-weight: 500; color: var(--text); }
+  .sb-new { margin: 12px 16px; background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent); border-radius: var(--radius); padding: 9px 14px; font-size: 13px; font-family: 'DM Sans', sans-serif; cursor: pointer; width: calc(100% - 32px); display: flex; align-items: center; gap: 8px; transition: background 0.15s; }
+  .sb-new:hover { background: rgba(74,222,128,0.2); }
+  .sb-section-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); padding: 12px 16px 6px; font-family: 'DM Mono', monospace; }
   .sb-list { flex: 1; overflow-y: auto; padding-bottom: 16px; }
-  .sb-item { padding: 10px 16px; cursor: pointer; border-left: 2px solid transparent; transition: all 0.12s; position: relative; }
+  .sb-item { padding: 10px 16px; cursor: pointer; border-left: 2px solid transparent; transition: all 0.12s; }
   .sb-item:hover { background: var(--bg3); }
-  .sb-item.active { background: var(--bg3); border-left-color: var(--sonar-red); }
-  .sb-item-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-  .sb-item-company { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; font-family: 'Poppins', sans-serif; }
-  .sb-item-del { background: transparent; border: none; cursor: pointer; color: var(--text3); padding: 2px 3px; border-radius: 4px; display: flex; align-items: center; flex-shrink: 0; opacity: 0; transition: opacity 0.12s, color 0.12s, background 0.12s; }
-  .sb-item-del svg { width: 13px; height: 13px; }
-  .sb-item:hover .sb-item-del { opacity: 1; }
-  .sb-item-del:hover { color: var(--red) !important; background: var(--red-dim); }
-  .sb-item-date { font-size: 10px; font-family: 'DM Mono', monospace; color: #c084fc; opacity: 0.85; margin-top: 2px; letter-spacing: 0.03em; }
-  .sb-item-date:empty { display: none; }
-  .sb-item-meta { font-size: 11px; color: var(--text3); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sb-item.active { background: var(--bg3); border-left-color: var(--accent); }
+  .sb-item-company { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sb-item-meta { font-size: 11px; color: var(--text3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sb-item.active .sb-item-meta { color: var(--text2); }
   .sb-dots { display: flex; gap: 3px; margin-top: 5px; }
   .sb-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--bg4); }
   .sb-dot.ok { background: var(--accent); }
   .sb-empty { padding: 24px 16px; text-align: center; color: var(--text3); font-size: 12px; line-height: 1.8; }
+
+  /* MAIN EMPTY */
   .main-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 12px; color: var(--text3); }
   .main-empty .big { font-size: 48px; }
   .main-empty p { font-size: 13px; }
+
+  /* FORM */
   .form-wrap { max-width: 760px; margin: 0 auto; padding: 32px 24px 80px; }
   .form-topbar { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; gap: 12px; flex-wrap: wrap; }
-  .form-heading { font-size: 22px; font-weight: 600; color: var(--text); font-family: 'Poppins', sans-serif; }
+  .form-heading { font-size: 22px; font-weight: 500; color: var(--text); }
   .form-subheading { font-size: 13px; color: var(--text3); margin-top: 3px; }
   .topbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-  .btn { background: transparent; border: 1px solid var(--border2); color: var(--text2); border-radius: var(--radius); padding: 7px 13px; font-size: 12px; font-family: 'Poppins', sans-serif; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.12s; white-space: nowrap; }
+  .btn { background: transparent; border: 1px solid var(--border2); color: var(--text2); border-radius: var(--radius); padding: 7px 13px; font-size: 12px; font-family: 'DM Sans', sans-serif; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.12s; white-space: nowrap; }
   .btn:hover { background: var(--bg3); color: var(--text); }
   .btn.danger { color: var(--red); border-color: rgba(248,113,113,0.25); }
   .btn.danger:hover { background: var(--red-dim); }
-  .btn.accent { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
-  .btn.accent:hover { background: var(--accent-hover); }
   .btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* SUMBAR */
   .sumbar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 24px; }
-  .sum-cell { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 6px; text-align: center; transition: border-color 0.2s; }
+  .sum-cell { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 6px; text-align: center; transition: all 0.15s; cursor: pointer; user-select: none; }
+  .sum-cell:hover { background: var(--bg3); border-color: var(--border2); transform: translateY(-2px); }
+  .sum-cell:active { transform: translateY(0); }
   .sum-cell.ok { border-color: var(--accent-border); background: var(--accent-dim); }
-  .sum-letter { font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600; color: var(--text3); }
+  .sum-cell.ok:hover { background: rgba(74,222,128,0.2); }
+  .sum-letter { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); transition: color 0.15s; }
+  .sum-cell:hover .sum-letter { color: var(--text); }
   .sum-cell.ok .sum-letter { color: var(--accent); }
   .sum-ind { width: 5px; height: 5px; border-radius: 50%; background: var(--bg4); margin: 5px auto 0; }
   .sum-cell.ok .sum-ind { background: var(--accent); }
+
+  /* META */
   .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 24px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; }
-  .field label { display: block; font-size: 10px; letter-spacing: 0.07em; color: var(--text3); margin-bottom: 5px; font-family: 'Poppins', sans-serif; font-weight: 600; text-transform: uppercase; }
-  .field input, .field select, .field textarea { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius); padding: 8px 10px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.12s; }
+  .field label { display: block; font-size: 11px; letter-spacing: 0.05em; color: var(--text3); margin-bottom: 5px; font-family: 'DM Mono', monospace; text-transform: uppercase; }
+  .field input, .field select, .field textarea { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius); padding: 8px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.12s; }
   .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--border2); }
   .field select { appearance: none; cursor: pointer; }
   .field textarea { resize: vertical; min-height: 58px; line-height: 1.55; }
   .hint { font-size: 11px; color: var(--text3); margin-top: 4px; line-height: 1.5; font-style: italic; }
+
+  /* SECTIONS */
   .sec { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s; }
   .sec.has-data { border-color: var(--border2); }
   .sec-hdr { display: flex; align-items: center; gap: 12px; padding: 13px 16px; cursor: pointer; user-select: none; transition: background 0.12s; }
   .sec-hdr:hover { background: var(--bg3); }
-  .sec-badge { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .sec-badge { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; flex-shrink: 0; }
   .sec-info { flex: 1; }
-  .sec-name { font-size: 13px; font-weight: 600; color: var(--text); font-family: 'Poppins', sans-serif; }
+  .sec-name { font-size: 13px; font-weight: 500; color: var(--text); }
   .sec-desc { font-size: 11px; color: var(--text3); margin-top: 1px; }
   .sec-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--bg4); flex-shrink: 0; transition: background 0.2s; }
   .sec.has-data .sec-dot { background: var(--accent); }
@@ -131,31 +128,31 @@
   .cpill.a1 { background: var(--red-dim); border-color: rgba(248,113,113,0.35); color: var(--red); }
   .cpill.a2 { background: var(--amber-dim); border-color: rgba(251,191,36,0.35); color: var(--amber); }
   .cpill.a3 { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
+
+  /* LIVE NOTES */
   .notes-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 24px; }
-  .notes-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+  .notes-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
   .notes-label { font-size: 11px; letter-spacing: 0.05em; color: var(--text3); font-family: 'DM Mono', monospace; text-transform: uppercase; display: flex; align-items: center; gap: 7px; }
-  .notes-pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--sonar-red); animation: pulse 2s infinite; }
+  .notes-pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-  .notes-actions { display: flex; align-items: center; gap: 8px; }
-  .notes-autofill { background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent); border-radius: var(--radius); padding: 5px 11px; font-size: 11px; font-family: 'Poppins', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.15s; white-space: nowrap; }
-  .notes-autofill:hover { background: var(--accent-hover); }
-  .notes-autofill svg { width: 12px; height: 12px; flex-shrink: 0; }
-  .notes-autofill.success { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
-  .notes-autofill.empty { background: transparent; border-color: var(--border2); color: var(--text3); }
   .notes-clear { font-size: 11px; color: var(--text3); background: transparent; border: none; cursor: pointer; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.12s; }
   .notes-clear:hover { color: var(--red); }
-  .notes-area { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius); padding: 12px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; resize: vertical; min-height: 100px; line-height: 1.65; transition: border-color 0.12s; }
-  .notes-area:focus { border-color: var(--accent-border); box-shadow: 0 0 0 2px rgba(211,18,29,0.07); }
+  .notes-area { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius); padding: 12px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; resize: vertical; min-height: 100px; line-height: 1.65; transition: border-color 0.12s; }
+  .notes-area:focus { border-color: var(--accent-border); }
   .notes-area::placeholder { color: var(--text3); }
-  .notes-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
-  .notes-chars { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
-  .notes-hint { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; font-style: italic; }
+  .notes-chars { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; margin-top: 6px; text-align: right; }
+
+  /* NEXT STEPS */
   .nextsteps-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; margin-top: 10px; }
   .nextsteps-label { font-size: 11px; letter-spacing: 0.05em; color: var(--text3); margin-bottom: 10px; font-family: 'DM Mono', monospace; text-transform: uppercase; }
+
+  /* SAVE BAR */
   .save-bar { display: flex; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
   .save-status { font-size: 12px; color: var(--text3); font-family: 'DM Mono', monospace; }
   .save-status.saved { color: var(--accent); }
   .copy-ok { font-size: 12px; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 5px 10px; display: none; font-family: 'DM Mono', monospace; }
+
+  /* MOBILE */
   .mobile-back { display: none; }
   @media (max-width: 700px) {
     .shell { flex-direction: column; }
@@ -172,42 +169,32 @@
 </style>
 </head>
 <body>
+
 <div class="shell" id="shell">
+
+  <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
     <div class="sb-header">
-      <div class="sb-brand">
-        <svg class="sb-mark" viewBox="0 0 76.32 76.32" xmlns="http://www.w3.org/2000/svg">
-          <path d="M51.48,35.35c0-3.5-.64-6.86-1.9-9.99-.25.11-.45.21-.59.27,0,0,0,0-.01,0-.57.29-.89.92-.82,1.55.15,1.3.25,2.82.25,4.19,0,6.4-2.07,12.54-5.82,17.29-3.55,4.49-8.31,7.38-13.49,8.2.01,0,.03.02.04.02,3.03,1.73,6.73,1.83,9.86.3,7.32-3.6,12.47-12.03,12.47-21.84Z" fill="#d3121d"/>
-          <path d="M52.9,24.7c-.48-.02-.94.02-1.36.09,1.31,3.32,1.97,6.88,1.97,10.56,0,11-6.13,20.76-15.08,24.32.45.03.91.05,1.37.05.02,0,.04,0,.07,0,4.31-.01,8.4-1.98,11.11-5.34,3.43-4.24,5.53-9.95,5.53-16.22,0-4.85-1.24-9.49-3.6-13.46Z" fill="#d3121d"/>
-          <path d="M61.36,38.16c0-2.93-.58-5.72-1.64-8.26-.49-1.17-1.17-2.25-2.07-3.14-.5-.5-1.05-.92-1.63-1.22-.15-.08-.3-.15-.46-.22,1.95,3.89,2.98,8.31,2.98,12.84,0,6.37-2.07,12.5-5.75,17.2,5.2-3.93,8.57-10.17,8.57-17.2Z" fill="#d3121d"/>
-          <path d="M55.27,23.14c-3.92-4.03-9.4-6.54-15.46-6.54-11.91,0-21.68,9.87-21.55,21.78.03,2.91.64,5.69,1.71,8.21-.35-.05-.71-.06-1.07-.05-.97.05-2.33-.3-2.95-.48-.6-.17-1.17.32-.92.9,0,0,0,.01,0,.02,2.14,4.9,6.88,8.09,11.41,8.08,0,0,0,0,0,0,0,0,0,0,0,0,.3,0,.6-.02.9-.05,10.6-.81,19.02-11.1,19.02-23.65,0-.79-.03-1.58-.1-2.36-.04-.43-.58-.58-.84-.24,0,0,0,0,0,0-2.93,3.88-7.28,10.71-12.71,7.15-2.08-1.36-3.21-4.3-2.58-7.29,1.13-5.37,7.39-8.89,10.14-7.79.21.09.99.4,1.25,1.1.4,1.08-.81,1.97-1.43,3.88-.67,2.07-.29,4.26.18,4.36.52.11,1.4-1.81,3.56-3.56,1.57-1.27,2.76-1.62,3.5-2.96.72-1.3-.56-2.69-.13-2.81.44-.12.84,1.38,2.13,2.13,1.08.63,2.05.23,3.47.18,0,0,.61-.02,1.58.12,0,0,.28.04.72.13.16.03.26-.16.15-.27ZM39.2,39.76c.16-.19.47-.54.98-.59.1-.01.61-.06.96.27.51.48.37,1.42-.08,1.96-.42.5-1.24.83-1.82.45-.49-.32-.51-.98-.51-1.04,0-.52.3-.87.46-1.06Z" fill="#e8e0ff"/>
-        </svg>
-        <div class="sb-brand-text">
-          <div class="sb-logo">SonarSource</div>
-          <div class="sb-title">MEDDIC Tracker</div>
-        </div>
-      </div>
+      <div class="sb-logo">SonarSource</div>
+      <div class="sb-title">MEDDIC Tracker</div>
     </div>
     <button class="sb-new" onclick="newCall()">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
       New call
     </button>
-    <div class="sb-section-row">
-      <span class="sb-section-label">Calls</span>
-      <button class="sb-clear-all" onclick="deleteAllCalls()" title="Delete all calls">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,4 14,4"/><path d="M5 4V2h6v2"/><path d="M3 4l1 9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-9"/></svg>
-        Clear all
-      </button>
-    </div>
+    <div class="sb-section-label">Calls</div>
     <div class="sb-list" id="sb-list">
       <div class="sb-empty" id="sb-empty">No calls yet.<br>Hit "New call" to start.</div>
     </div>
   </div>
+
+  <!-- MAIN -->
   <div class="main" id="main">
     <div class="main-empty" id="main-empty">
       <div class="big">&#9776;</div>
       <p>Select a call or create a new one</p>
     </div>
+
     <div class="form-wrap" id="form-wrap" style="display:none;">
       <button class="btn mobile-back" onclick="backToList()">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"/></svg>
@@ -219,10 +206,6 @@
           <div class="form-subheading" id="form-subheading">Fill as you go — saves automatically</div>
         </div>
         <div class="topbar-actions">
-          <button class="btn accent" id="export-btn" onclick="exportToDocx()">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 13h8M8 2v8M5 7l3 3 3-3"/></svg>
-            Export .docx
-          </button>
           <button class="btn" onclick="copyCall()">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="8" height="9" rx="1"/><path d="M3 11V3a1 1 0 0 1 1-1h7"/></svg>
             Copy as text
@@ -233,15 +216,19 @@
           </button>
         </div>
       </div>
+
+      <!-- SUMBAR -->
       <div class="sumbar" id="sumbar">
-        <div class="sum-cell" id="sum-M"><div class="sum-letter">M</div><div class="sum-ind"></div></div>
-        <div class="sum-cell" id="sum-E"><div class="sum-letter">E</div><div class="sum-ind"></div></div>
-        <div class="sum-cell" id="sum-D"><div class="sum-letter">D</div><div class="sum-ind"></div></div>
-        <div class="sum-cell" id="sum-D2"><div class="sum-letter">D</div><div class="sum-ind"></div></div>
-        <div class="sum-cell" id="sum-I"><div class="sum-letter">I</div><div class="sum-ind"></div></div>
-        <div class="sum-cell" id="sum-C"><div class="sum-letter">C</div><div class="sum-ind"></div></div>
-        <div class="sum-cell" id="sum-C2"><div class="sum-letter">C</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-M" onclick="jumpToSection('M')" title="Metrics"><div class="sum-letter">M</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-E" onclick="jumpToSection('E')" title="Economic buyer"><div class="sum-letter">E</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-D" onclick="jumpToSection('D')" title="Decision process"><div class="sum-letter">D</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-D2" onclick="jumpToSection('D2')" title="Decision criteria"><div class="sum-letter">D</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-I" onclick="jumpToSection('I')" title="Identify pain"><div class="sum-letter">I</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-C" onclick="jumpToSection('C')" title="Champion"><div class="sum-letter">C</div><div class="sum-ind"></div></div>
+        <div class="sum-cell" id="sum-C2" onclick="jumpToSection('C2')" title="Competition"><div class="sum-letter">C</div><div class="sum-ind"></div></div>
       </div>
+
+      <!-- META -->
       <div class="meta-grid">
         <div class="field"><label>Company</label><input type="text" id="f-company" placeholder="Acme Corp" oninput="autosave()"></div>
         <div class="field"><label>Contact</label><input type="text" id="f-contact" placeholder="Jane Smith" oninput="autosave()"></div>
@@ -258,36 +245,31 @@
           </select>
         </div>
       </div>
+
+      <!-- LIVE NOTES -->
       <div class="notes-wrap">
         <div class="notes-header">
           <div class="notes-label">
             <div class="notes-pulse"></div>
             Live notes — type freely during the call
           </div>
-          <div class="notes-actions">
-            <button class="notes-autofill" id="autofill-btn" onclick="autoFillFromNotes()" title="Auto-fill MEDDIC fields from your notes (or press Ctrl+Enter)">
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L6 10M13 3H9M13 3V7"/><path d="M9 6H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3"/></svg>
-              Auto-fill MEDDIC
-            </button>
-            <button class="notes-clear" onclick="clearNotes()" title="Clear notes">Clear</button>
-          </div>
+          <button class="notes-clear" onclick="clearNotes()" title="Clear notes">Clear</button>
         </div>
-        <textarea class="notes-area" id="f-livenotes"
-          placeholder="Type anything here in real time — key quotes, observations, things to follow up on, ideas...&#10;&#10;No structure needed. Just capture what you hear.&#10;&#10;When done, click &quot;Auto-fill MEDDIC&quot; or press Ctrl+Enter to extract key info."
-          oninput="onNotesInput()"
-          onkeydown="onNotesKeyDown(event)"></textarea>
-        <div class="notes-footer">
-          <span class="notes-chars" id="notes-chars">0 characters</span>
-          <span class="notes-hint">Ctrl+Enter to auto-fill</span>
-        </div>
+        <textarea class="notes-area" id="f-livenotes" placeholder="Type anything here in real time — key quotes, observations, things to follow up on, ideas...&#10;&#10;No structure needed. Just capture what you hear." oninput="onNotesInput()"></textarea>
+        <div class="notes-chars" id="notes-chars">0 characters</div>
       </div>
+
+      <!-- SECTIONS -->
       <div id="sections-wrap"></div>
+
+      <!-- NEXT STEPS -->
       <div class="nextsteps-wrap">
         <div class="nextsteps-label">Next steps &amp; owners</div>
         <div class="field">
           <textarea id="f-nextsteps" placeholder="Nathan: send SOC 2 to Ben by Friday.&#10;Lucas: confirm contract end date before 20 May call.&#10;Next call: 20 May 14:00 CET" style="min-height:72px;" oninput="autosave()"></textarea>
         </div>
       </div>
+
       <div class="save-bar">
         <span class="save-status" id="save-status">All changes saved</span>
         <div class="copy-ok" id="copy-ok">Copied to clipboard</div>
@@ -295,6 +277,7 @@
     </div>
   </div>
 </div>
+
 <script>
 const SECTIONS = [
   { key:'M', letter:'M', label:'Metrics', desc:'Quantify the problem & value',
@@ -356,27 +339,48 @@ const SECTIONS = [
       {id:'comp-gaps', label:'Our gaps to address', ph:'e.g. No DAST module yet — prepare mitigation messaging'}
     ]}
 ];
+
 const FIELD_LABELS = {};
 SECTIONS.forEach(s => s.fields.forEach(f => { FIELD_LABELS[f.id] = f.label; }));
-let calls = [], currentId = null, saveTimer = null, confData = {};
-function loadStorage() { try { return JSON.parse(localStorage.getItem('meddic_calls') || '[]'); } catch(e) { return []; } }
-function saveStorage() { localStorage.setItem('meddic_calls', JSON.stringify(calls)); }
-function loadCallData(id) { try { return JSON.parse(localStorage.getItem('meddic_call_' + id) || 'null'); } catch(e) { return null; } }
-function saveCallData(id, data) { localStorage.setItem('meddic_call_' + id, JSON.stringify(data)); }
-function deleteCallData(id) { localStorage.removeItem('meddic_call_' + id); }
+
+let calls = [];
+let currentId = null;
+let saveTimer = null;
+let confData = {};
+
+// localStorage helpers
+function loadStorage() {
+  try { return JSON.parse(localStorage.getItem('meddic_calls') || '[]'); } catch(e) { return []; }
+}
+function saveStorage() {
+  localStorage.setItem('meddic_calls', JSON.stringify(calls));
+}
+function loadCallData(id) {
+  try { return JSON.parse(localStorage.getItem('meddic_call_' + id) || 'null'); } catch(e) { return null; }
+}
+function saveCallData(id, data) {
+  localStorage.setItem('meddic_call_' + id, JSON.stringify(data));
+}
+function deleteCallData(id) {
+  localStorage.removeItem('meddic_call_' + id);
+}
+
+// Build sections HTML
 function buildSections() {
   const wrap = document.getElementById('sections-wrap');
   wrap.innerHTML = '';
   SECTIONS.forEach(sec => {
     const div = document.createElement('div');
-    div.className = 'sec collapsed'; div.id = 'sec-' + sec.key;
+    div.className = 'sec collapsed';
+    div.id = 'sec-' + sec.key;
     let fieldsHTML = '';
     const fs = sec.fields;
     for (let i = 0; i < fs.length; i++) {
       const f = fs[i];
       if (!f.ta && fs[i+1] && !fs[i+1].ta && !f._p) {
         f._p = true; fs[i+1]._p = true;
-        fieldsHTML += `<div class="two-col">${fHTML(f,sec.key)}${fHTML(fs[i+1],sec.key)}</div>`; i++;
+        fieldsHTML += `<div class="two-col">${fHTML(f, sec.key)}${fHTML(fs[i+1], sec.key)}</div>`;
+        i++;
       } else { fieldsHTML += fHTML(f, sec.key); }
     }
     div.innerHTML = `
@@ -386,63 +390,110 @@ function buildSections() {
         <div class="sec-dot"></div>
         <svg class="sec-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><polyline points="2,4 6,8 10,4"/></svg>
       </div>
-      <div class="sec-body">${fieldsHTML}
-        <div class="conf-row"><span class="conf-label">Confidence</span><div class="cpills" id="cpills-${sec.key}"></div></div>
+      <div class="sec-body">
+        ${fieldsHTML}
+        <div class="conf-row">
+          <span class="conf-label">Confidence</span>
+          <div class="cpills" id="cpills-${sec.key}"></div>
+        </div>
       </div>`;
     wrap.appendChild(div);
   });
   SECTIONS.forEach(s => s.fields.forEach(f => { delete f._p; }));
   buildPills();
 }
+
 function fHTML(f, key) {
-  const input = f.ta ? `<textarea id="${f.id}" placeholder="${f.ph}" oninput="onField('${key}')"></textarea>`
+  const input = f.ta
+    ? `<textarea id="${f.id}" placeholder="${f.ph}" oninput="onField('${key}')"></textarea>`
     : `<input type="text" id="${f.id}" placeholder="${f.ph}" oninput="onField('${key}')">`;
-  return `<div class="field"><label>${f.label}</label>${input}${f.hint ? `<div class="hint">${f.hint}</div>` : ''}</div>`;
+  const hint = f.hint ? `<div class="hint">${f.hint}</div>` : '';
+  return `<div class="field"><label>${f.label}</label>${input}${hint}</div>`;
 }
+
 function buildPills() {
   SECTIONS.forEach(sec => {
     confData[sec.key] = confData[sec.key] || 0;
-    const c = document.getElementById('cpills-' + sec.key); if (!c) return; c.innerHTML = '';
+    const c = document.getElementById('cpills-' + sec.key);
+    if (!c) return;
+    c.innerHTML = '';
     [1,2,3].forEach(v => {
       const b = document.createElement('button');
-      b.className = 'cpill' + (confData[sec.key] === v ? ' a'+v : ''); b.textContent = v;
-      b.onclick = () => { confData[sec.key] = confData[sec.key] === v ? 0 : v; buildPills(); updateSumBar(); autosave(); };
+      b.className = 'cpill' + (confData[sec.key] === v ? ' a'+v : '');
+      b.textContent = v;
+      b.onclick = () => {
+        confData[sec.key] = confData[sec.key] === v ? 0 : v;
+        buildPills();
+        updateSumBar();
+        autosave();
+      };
       c.appendChild(b);
     });
   });
 }
+
 function toggleSec(key) { document.getElementById('sec-' + key).classList.toggle('collapsed'); }
+
+function jumpToSection(key) {
+  const secEl = document.getElementById('sec-' + key);
+  if (!secEl) return;
+  // Expand if collapsed
+  secEl.classList.remove('collapsed');
+  // Scroll to it smoothly
+  setTimeout(() => {
+    secEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Flash highlight to confirm where we landed
+    secEl.style.transition = 'box-shadow 0.2s';
+    secEl.style.boxShadow = '0 0 0 2px var(--accent)';
+    setTimeout(() => { secEl.style.boxShadow = ''; }, 900);
+  }, 50);
+}
+
 function onField(key) { updateSumBar(); autosave(); }
+
 function updateSumBar() {
   SECTIONS.forEach(sec => {
-    const secEl = document.getElementById('sec-' + sec.key); if (!secEl) return;
+    const secEl = document.getElementById('sec-' + sec.key);
+    if (!secEl) return;
+    const inputs = secEl.querySelectorAll('input[type=text], textarea');
     let filled = confData[sec.key] > 0;
-    secEl.querySelectorAll('input[type=text], textarea').forEach(el => { if (el.value && el.value.trim()) filled = true; });
+    inputs.forEach(el => { if (el.value && el.value.trim()) filled = true; });
     secEl.className = 'sec' + (secEl.classList.contains('collapsed') ? ' collapsed' : '') + (filled ? ' has-data' : '');
-    const sd = secEl.querySelector('.sec-dot'); if (sd) sd.style.background = filled ? 'var(--accent)' : '';
-    const sum = document.getElementById('sum-' + sec.key); if (sum) sum.className = 'sum-cell' + (filled ? ' ok' : '');
+    const sd = secEl.querySelector('.sec-dot');
+    if (sd) sd.style.background = filled ? 'var(--accent)' : '';
+    const sum = document.getElementById('sum-' + sec.key);
+    if (sum) sum.className = 'sum-cell' + (filled ? ' ok' : '');
   });
   updateSidebarDots();
 }
+
 function updateSidebarDots() {
   if (!currentId) return;
-  const item = document.querySelector(`.sb-item[data-id="${currentId}"]`); if (!item) return;
-  const dotsEl = item.querySelector('.sb-dots'); if (!dotsEl) return;
+  const item = document.querySelector(`.sb-item[data-id="${currentId}"]`);
+  if (!item) return;
+  const dotsEl = item.querySelector('.sb-dots');
+  if (!dotsEl) return;
   dotsEl.innerHTML = '';
   SECTIONS.forEach(sec => {
     const secEl = document.getElementById('sec-' + sec.key);
     let filled = confData[sec.key] > 0;
     if (secEl) secEl.querySelectorAll('input[type=text], textarea').forEach(el => { if (el.value && el.value.trim()) filled = true; });
-    const d = document.createElement('div'); d.className = 'sb-dot' + (filled ? ' ok' : ''); dotsEl.appendChild(d);
+    const d = document.createElement('div');
+    d.className = 'sb-dot' + (filled ? ' ok' : '');
+    dotsEl.appendChild(d);
   });
 }
+
 function gatherData() {
-  const d = { company: v('f-company'), contact: v('f-contact'), role: v('f-role'), date: v('f-date'),
-    calltype: v('f-calltype'), stage: v('f-stage'), nextsteps: v('f-nextsteps'), livenotes: v('f-livenotes'),
-    conf: {...confData}, fields: {} };
+  const d = {
+    company: v('f-company'), contact: v('f-contact'), role: v('f-role'),
+    date: v('f-date'), calltype: v('f-calltype'), stage: v('f-stage'),
+    nextsteps: v('f-nextsteps'), livenotes: v('f-livenotes'), conf: {...confData}, fields: {}
+  };
   SECTIONS.forEach(sec => sec.fields.forEach(f => { d.fields[f.id] = v(f.id); }));
   return d;
 }
+
 function populateForm(data) {
   if (!data) { SECTIONS.forEach(s => { confData[s.key] = 0; }); buildPills(); return; }
   sv('f-company', data.company); sv('f-contact', data.contact); sv('f-role', data.role);
@@ -452,157 +503,118 @@ function populateForm(data) {
   if (data.conf) SECTIONS.forEach(s => { confData[s.key] = data.conf[s.key] || 0; });
   else SECTIONS.forEach(s => { confData[s.key] = 0; });
   if (data.fields) Object.entries(data.fields).forEach(([id, val]) => sv(id, val));
-  buildPills(); updateSumBar();
+  buildPills();
+  updateSumBar();
 }
-function onNotesInput() { updateNotesChars(); autosave(); }
-function onNotesKeyDown(e) { if (e.ctrlKey && e.key === 'Enter') { e.preventDefault(); autoFillFromNotes(); } }
+
+function onNotesInput() {
+  updateNotesChars();
+  autosave();
+}
+
 function updateNotesChars() {
-  const el = document.getElementById('f-livenotes'), counter = document.getElementById('notes-chars');
-  if (el && counter) { const len = el.value.length; counter.textContent = len === 0 ? '0 characters' : len + ' character' + (len === 1 ? '' : 's'); }
+  const el = document.getElementById('f-livenotes');
+  const counter = document.getElementById('notes-chars');
+  if (el && counter) {
+    const len = el.value.length;
+    counter.textContent = len === 0 ? '0 characters' : len + ' character' + (len === 1 ? '' : 's');
+  }
 }
+
 function clearNotes() {
   if (!confirm('Clear all live notes for this call?')) return;
-  sv('f-livenotes', ''); updateNotesChars(); autosave();
+  sv('f-livenotes', '');
+  updateNotesChars();
+  autosave();
 }
-function autoFillFromNotes() {
-  const notes = v('f-livenotes').trim();
-  const btn = document.getElementById('autofill-btn');
-  if (!notes) { flashBtn(btn, 'No notes to parse', 'empty'); return; }
-  let filled = 0;
-  function trySet(fieldId, value) { const el = document.getElementById(fieldId); if (el && value && !el.value.trim()) { el.value = value.trim(); filled++; } }
-  function appendTo(fieldId, value) { const el = document.getElementById(fieldId); if (el && value && value.trim()) { const ex = el.value.trim(); el.value = ex ? ex + '\n' + value.trim() : value.trim(); filled++; } }
-  const sentences = notes.match(/[^.!?\n]+[.!?\n]*/g) || notes.split('\n');
-  const clean = s => s.trim().replace(/\s+/g, ' ');
-  const metricLines=[], painLines=[], processLines=[], criteriaLines=[], ebLines=[], champLines=[], compLines=[];
-  const execTitles = ['ceo','cfo','cto','coo','ciso','vp ','vice president','director','head of','president','founder','owner','chief'];
-  const competitors = ['veracode','checkmarx','github advanced security','ghas','snyk','fortify','blackduck','mend','semgrep','coverity','sonatype','aqua','prisma'];
-  sentences.forEach(raw => {
-    const s = clean(raw); if (!s || s.length < 4) return; const sl = s.toLowerCase();
-    if (/\$|€|£|\d+\s*k\b|\d+\s*m\b|\d+ million|\bbudget\b|\barr\b|\bmrr\b|\bdeal\b|\bheadcount\b|\b\d+\s*(dev|engineer|user|seat)|\bsave\b|\bcost\b|\bper (year|month|week|day|sprint)\b|\bann?ually\b|\bokr\b|\bgoal\b|\bobjective\b/.test(sl)) metricLines.push(s);
-    if (/\bpain\b|\bproblem\b|\bissue\b|\bchallenge\b|\bdifficult\b|\bslow\b|\bmanual\b|\bbroken\b|\bfailing\b|\bincident\b|\bbreach\b|\bfrustrat\b|\bbottleneck\b|\bstruggle\b|\brisk\b|\bvulner|\blegacy\b|\btechnical debt\b|\bcan'?t\b|\bcannot\b/.test(sl)) painLines.push(s);
-    if (/\bprocess\b|\btimeline\b|\bapproval\b|\bsign.off\b|\btrial\b|\bpoc\b|\bpilot\b|\blegal\b|\bprocurement\b|\beval(uation)?\b|\bdeadline\b|\bclose(s)? (in|by)\b|\bq[1-4]\b|\bquarter\b|\bweeks?\b|\bmonths?\b|\bby end\b|\bblocked?\b/.test(sl)) processLines.push(s);
-    if (/\bneed\b|\brequire\b|\bmust\b|\bimportant\b|\bpriority\b|\bcritical\b|\blooking for\b|\bcare about\b|\bcriteria\b|\bfeature\b|\bintegration\b|\bcompliance\b|\bperformance\b|\bsupport\b|\bonboarding\b|\bnon.negotiable\b/.test(sl)) criteriaLines.push(s);
-    if (execTitles.some(t => sl.includes(t))) ebLines.push(s);
-    if (/\bchampion\b|\bsponsor\b|\badvocate\b|\binternal\b|\bpush(ing)? for\b|\bsell(ing)? internally\b|\bally\b|\bour (guy|person|contact)\b/.test(sl)) champLines.push(s);
-    if (competitors.some(c => sl.includes(c)) || /\bcompetitor\b|\bcompeting\b|\balso looking\b|\bcomparing\b|\balternative\b|\bversus\b|\brfp\b|\bshortlist\b|\bbakeoff\b|\bbake-off\b|\bvs\.?\s/.test(sl)) compLines.push(s);
-  });
-  function unique(arr) { return [...new Set(arr)]; }
-  if (metricLines.length)  { appendTo('m-waste',    unique(metricLines).join('\n'));    openSec('M'); }
-  if (painLines.length)    { appendTo('ip-pain',    unique(painLines).join('\n'));      openSec('I'); }
-  if (processLines.length) { appendTo('dp-process', unique(processLines).join('\n'));  openSec('D'); }
-  if (criteriaLines.length){ appendTo('dc-factors', unique(criteriaLines).join('\n')); openSec('D2'); }
-  if (ebLines.length)      { appendTo('e-cares',    unique(ebLines).join('\n'));        openSec('E'); }
-  if (champLines.length)   { appendTo('ch-name',    unique(champLines).join('\n'));     openSec('C'); }
-  if (compLines.length)    { appendTo('comp-lean',  unique(compLines).join('\n'));      openSec('C2'); }
-  const budgetMatch = notes.match(/(?:\$|€|£)\s*[\d,.]+(?:\s*[kKmMbB])?|\b\d[\d,.]*\s*(?:k|K|m|M)\s*(?:dollars?|euros?|pounds?|USD|EUR|GBP)\b/i);
-  if (budgetMatch) trySet('m-dealval', budgetMatch[0]);
-  const teamMatch = notes.match(/\b(\d+)\s*(?:developer|devs?|engineer|people|user|seat|employee)/i);
-  if (teamMatch) trySet('m-team', teamMatch[0]);
-  const closeMatch = notes.match(/(?:close(?:s|d)?|by|before|end of|target(?:ing)?)\s+(?:Q[1-4]\s*\d{0,4}|\w+ \d{4}|next \w+|\d+\s*\w+)/i);
-  if (closeMatch) trySet('dp-close', closeMatch[0]);
-  const blockerMatch = notes.match(/(?:block(?:er|ed|ing)?|wait(?:ing)? on|stuck on|depend(?:s|ency)? on)[^.!?\n]{3,60}/i);
-  if (blockerMatch) trySet('dp-blockers', blockerMatch[0].trim());
-  const ebNameMatch = notes.match(/\b([A-Z][a-zé-]+ (?:[A-Z][a-zé-]+ )?[A-Z][a-zé-]+)\s*[,\-–]\s*(?:CEO|CFO|CTO|CIO|CISO|VP|Director|Head of|President|Founder)/);
-  if (!ebNameMatch) { const rev = notes.match(/\b(?:CEO|CFO|CTO|CIO|CISO|VP|Director|Head of|President|Founder)\s+([A-Z][a-zé-]+ (?:[A-Z][a-zé-]+ )?[A-Z][a-zé-]+)/); if (rev) trySet('e-name', rev[0]); }
-  else trySet('e-name', ebNameMatch[0]);
-  const foundComps = competitors.filter(c => notes.toLowerCase().includes(c)).map(c => c.charAt(0).toUpperCase() + c.slice(1));
-  if (foundComps.length) trySet('comp-names', foundComps.join(', '));
-  const urgencyMatch = notes.match(/(?:urgent|mandate|incident|breach|board|deadline|can't wait|must act|pressure|burning|forcing)[^.!?\n]{3,120}/i);
-  if (urgencyMatch) trySet('ip-urgency', urgencyMatch[0].trim());
-  updateSumBar(); autosave();
-  flashBtn(btn, filled > 0 ? `${filled} field${filled > 1 ? 's' : ''} filled` : 'Nothing matched', filled > 0 ? 'success' : 'empty');
-}
-function openSec(key) { const sec = document.getElementById('sec-' + key); if (sec) sec.classList.remove('collapsed'); }
-function flashBtn(btn, message, state) {
-  const original = btn.innerHTML, originalClass = btn.className;
-  btn.textContent = message; btn.className = 'notes-autofill ' + state;
-  setTimeout(() => { btn.innerHTML = original; btn.className = originalClass; }, 2500);
-}
+
 function v(id) { const el = document.getElementById(id); return el ? el.value : ''; }
 function sv(id, val) { const el = document.getElementById(id); if (el) el.value = val || ''; }
+
 function autosave() {
   const ss = document.getElementById('save-status');
   if (ss) { ss.className = 'save-status'; ss.textContent = 'Saving...'; }
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     if (!currentId) return;
-    const data = gatherData(); saveCallData(currentId, data);
+    const data = gatherData();
+    saveCallData(currentId, data);
     const idx = calls.findIndex(c => c.id === currentId);
-    if (idx >= 0) { calls[idx].company = data.company || 'Unnamed'; calls[idx].contact = data.contact; calls[idx].date = data.date; calls[idx].stage = data.stage; saveStorage(); renderSidebar(); }
+    if (idx >= 0) {
+      calls[idx].company = data.company || 'Unnamed';
+      calls[idx].contact = data.contact;
+      calls[idx].date = data.date;
+      calls[idx].stage = data.stage;
+      saveStorage();
+      renderSidebar();
+    }
     if (ss) { ss.className = 'save-status saved'; ss.textContent = 'Saved'; }
   }, 700);
 }
+
 function newCall() {
   const id = 'c_' + Date.now();
   calls.unshift({ id, company: 'New call', contact: '', date: '', stage: 'Prospecting' });
-  saveStorage(); openCall(id);
+  saveStorage();
+  openCall(id);
 }
+
 function openCall(id) {
-  currentId = id; buildSections();
-  const data = loadCallData(id); populateForm(data);
+  currentId = id;
+  buildSections();
+  const data = loadCallData(id);
+  populateForm(data);
   const entry = calls.find(c => c.id === id);
   document.getElementById('form-heading').textContent = (entry && entry.company && entry.company !== 'New call') ? entry.company : 'New call';
   document.getElementById('form-subheading').textContent = [entry && entry.contact, entry && entry.stage].filter(Boolean).join(' · ') || 'Fill as you go — saves automatically';
   document.getElementById('main-empty').style.display = 'none';
   document.getElementById('form-wrap').style.display = 'block';
   renderSidebar();
-  if (window.innerWidth <= 700) { document.getElementById('sidebar').classList.add('hidden-mobile'); document.getElementById('main').classList.remove('hidden-mobile'); }
+  // mobile
+  if (window.innerWidth <= 700) {
+    document.getElementById('sidebar').classList.add('hidden-mobile');
+    document.getElementById('main').classList.remove('hidden-mobile');
+  }
 }
-function backToList() { document.getElementById('sidebar').classList.remove('hidden-mobile'); document.getElementById('main').classList.add('hidden-mobile'); }
+
+function backToList() {
+  document.getElementById('sidebar').classList.remove('hidden-mobile');
+  document.getElementById('main').classList.add('hidden-mobile');
+}
+
 function deleteCall() {
   if (!currentId) return;
   if (!confirm('Delete this call? This cannot be undone.')) return;
-  deleteCallData(currentId); calls = calls.filter(c => c.id !== currentId); saveStorage();
-  currentId = null; document.getElementById('form-wrap').style.display = 'none'; document.getElementById('main-empty').style.display = 'flex'; renderSidebar();
-}
-function deleteSingleCall(id, e) {
-  e.stopPropagation();
-  const entry = calls.find(c => c.id === id);
-  if (!confirm(`Delete "${(entry && entry.company) || 'this call'}"? This cannot be undone.`)) return;
-  deleteCallData(id); calls = calls.filter(c => c.id !== id); saveStorage();
-  if (currentId === id) { currentId = null; document.getElementById('form-wrap').style.display = 'none'; document.getElementById('main-empty').style.display = 'flex'; }
+  deleteCallData(currentId);
+  calls = calls.filter(c => c.id !== currentId);
+  saveStorage();
+  currentId = null;
+  document.getElementById('form-wrap').style.display = 'none';
+  document.getElementById('main-empty').style.display = 'flex';
   renderSidebar();
 }
-function deleteAllCalls() {
-  if (calls.length === 0) return;
-  if (!confirm(`Delete all ${calls.length} call${calls.length > 1 ? 's' : ''}? This cannot be undone.`)) return;
-  calls.forEach(c => deleteCallData(c.id)); calls = []; saveStorage();
-  currentId = null; document.getElementById('form-wrap').style.display = 'none'; document.getElementById('main-empty').style.display = 'flex'; renderSidebar();
-}
-function formatDateLabel(dateStr) {
-  if (!dateStr || !dateStr.trim()) return '';
-  const d = new Date(dateStr); if (isNaN(d.getTime())) return dateStr;
-  const today = new Date(); today.setHours(0,0,0,0);
-  const yesterday = new Date(today); yesterday.setDate(today.getDate() - 1);
-  const target = new Date(d); target.setHours(0,0,0,0);
-  if (target.getTime() === today.getTime()) return 'Today';
-  if (target.getTime() === yesterday.getTime()) return 'Yesterday';
-  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: target.getFullYear() !== today.getFullYear() ? 'numeric' : undefined });
-}
+
 function renderSidebar() {
-  const list = document.getElementById('sb-list'), empty = document.getElementById('sb-empty');
+  const list = document.getElementById('sb-list');
+  const empty = document.getElementById('sb-empty');
   if (calls.length === 0) { empty.style.display = 'block'; list.innerHTML = ''; list.appendChild(empty); return; }
-  empty.style.display = 'none'; list.innerHTML = '';
+  empty.style.display = 'none';
+  list.innerHTML = '';
   calls.forEach(c => {
     const div = document.createElement('div');
-    div.className = 'sb-item' + (c.id === currentId ? ' active' : ''); div.dataset.id = c.id;
-    const dateLabel = formatDateLabel(c.date);
-    const metaParts = [c.contact, c.stage].filter(Boolean);
+    div.className = 'sb-item' + (c.id === currentId ? ' active' : '');
+    div.dataset.id = c.id;
     div.innerHTML = `
-      <div class="sb-item-top">
-        <div class="sb-item-company">${c.company || 'Unnamed'}</div>
-        <button class="sb-item-del" title="Delete call" onclick="deleteSingleCall('${c.id}', event)">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,4 14,4"/><path d="M5 4V2h6v2"/><path d="M6 7v5M10 7v5"/><path d="M3 4l1 9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-9"/></svg>
-        </button>
-      </div>
-      ${dateLabel ? `<div class="sb-item-date">${dateLabel}</div>` : ''}
-      <div class="sb-item-meta">${metaParts.join(' · ') || 'No details yet'}</div>
+      <div class="sb-item-company">${c.company || 'Unnamed'}</div>
+      <div class="sb-item-meta">${[c.contact, c.stage, c.date].filter(Boolean).join(' · ') || 'No details yet'}</div>
       <div class="sb-dots">${Array(7).fill('<div class="sb-dot"></div>').join('')}</div>`;
-    div.onclick = () => openCall(c.id); list.appendChild(div);
+    div.onclick = () => openCall(c.id);
+    list.appendChild(div);
   });
   if (currentId) updateSidebarDots();
 }
-function copyCall() {
+
+function buildExportText() {
   const lines = ['=== MEDDIC CALL NOTES ==='];
   lines.push(`Company: ${v('f-company')}   Contact: ${v('f-contact')} (${v('f-role')})`);
   lines.push(`Date: ${v('f-date')}   Stage: ${v('f-stage')}   Call: ${v('f-calltype')}`);
@@ -615,154 +627,72 @@ function copyCall() {
     sec.fields.forEach(f => { const val = v(f.id); if (val) lines.push(`${f.label}: ${val}`); });
     lines.push('');
   });
-  lines.push('--- NEXT STEPS ---'); lines.push(v('f-nextsteps'));
-  navigator.clipboard.writeText(lines.join('\n')).then(() => {
-    const ok = document.getElementById('copy-ok'); ok.style.display = 'block'; setTimeout(() => ok.style.display = 'none', 2500);
-  }).catch(() => { alert('Copy failed — try a different browser.'); });
+  lines.push('--- NEXT STEPS ---');
+  lines.push(v('f-nextsteps'));
+  return lines.join('\n');
 }
-async function exportToDocx() {
-  if (!currentId) { alert('Open a call first, then export it.'); return; }
-  const btn = document.getElementById('export-btn');
-  const origHTML = btn.innerHTML;
-  btn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="8" cy="8" r="6" stroke-dasharray="30" stroke-dashoffset="10"><animateTransform attributeName="transform" type="rotate" from="0 8 8" to="360 8 8" dur="0.8s" repeatCount="indefinite"/></circle></svg> Generating…';
-  btn.disabled = true;
+
+function showCopyOk() {
+  const ok = document.getElementById('copy-ok');
+  ok.style.display = 'block';
+  setTimeout(() => ok.style.display = 'none', 2500);
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.top = '-9999px';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
   try {
-    if (!window.docx) {
-      await new Promise((resolve, reject) => {
-        const s = document.createElement('script');
-        s.src = 'https://unpkg.com/docx@8.5.0/build/index.js';
-        s.onload = resolve;
-        s.onerror = () => reject(new Error('Could not load docx library. Check your internet connection.'));
-        document.head.appendChild(s);
-      });
-    }
-    const { Document, Packer, Paragraph, TextRun, BorderStyle, AlignmentType } = window.docx;
-    const data = gatherData();
-    const children = [];
-    const BS = BorderStyle;
-    const leftBorder = (hexColor, size) => ({ left: { style: BS.THICK, size: size || 20, color: hexColor, space: 8 } });
-    const para = (runs, opts) => new Paragraph({ children: runs.map(r => new TextRun(r)), ...(opts || {}) });
-    const gap = (after) => new Paragraph({ children: [], spacing: { after: after || 160 } });
-
-    // ── Title block ──
-    children.push(para([{ text: data.company || 'Unnamed Call', font: 'Arial', size: 52, bold: true, color: '150020' }], { spacing: { after: 80 } }));
-    children.push(para([{ text: 'MEDDIC Call Report', font: 'Arial', size: 28, color: '7a6a8a' }], { spacing: { after: 60 } }));
-    if (data.contact || data.role) {
-      children.push(para([{ text: [data.contact, data.role].filter(Boolean).join('  ·  '), font: 'Arial', size: 22, color: '444455' }], { spacing: { after: 50 } }));
-    }
-    const metaParts = [data.date, data.calltype, data.stage].filter(Boolean);
-    if (metaParts.length) {
-      children.push(para([{ text: metaParts.join('  ·  '), font: 'Arial', size: 20, color: '999aaa', italics: true }], { spacing: { after: 0 } }));
-    }
-    // Horizontal rule
-    children.push(new Paragraph({ border: { bottom: { style: BS.SINGLE, size: 4, color: 'ddd0ee', space: 1 } }, spacing: { before: 200, after: 280 }, children: [] }));
-
-    // ── Live Notes ──
-    if (data.livenotes && data.livenotes.trim()) {
-      children.push(para([{ text: 'Live Notes', font: 'Arial', size: 26, bold: true, color: '290042' }], { spacing: { after: 120 } }));
-      data.livenotes.split('\n').forEach(line => {
-        children.push(para([{ text: line || ' ', font: 'Arial', size: 22, color: '2a2a3a' }], { spacing: { after: 60 } }));
-      });
-      children.push(gap(200));
-    }
-
-    // ── MEDDIC sections ──
-    const colorMap = { M:'5c9fea', E:'e6a817', D:'3bc47a', D2:'26b8a8', I:'e85fa8', C:'9b72e8', C2:'f07828' };
-    SECTIONS.forEach(sec => {
-      const hexColor = colorMap[sec.key] || '888888';
-      const filledFields = sec.fields.filter(f => data.fields[f.id] && data.fields[f.id].trim());
-      const conf = data.conf && data.conf[sec.key];
-      if (!filledFields.length && !conf) return;
-
-      // Section label
-      children.push(new Paragraph({
-        border: leftBorder(hexColor, 24),
-        indent: { left: 320 },
-        spacing: { after: 100 },
-        children: [new TextRun({ text: sec.label, font: 'Arial', size: 26, bold: true, color: hexColor })]
-      }));
-
-      filledFields.forEach(f => {
-        const val = data.fields[f.id];
-        // Field label
-        children.push(new Paragraph({
-          border: leftBorder(hexColor, 16),
-          indent: { left: 480 },
-          spacing: { after: 30 },
-          children: [new TextRun({ text: f.label, font: 'Arial', size: 18, bold: true, color: '666677' })]
-        }));
-        // Field value lines
-        const lines = val.split('\n');
-        lines.forEach((line, i) => {
-          children.push(new Paragraph({
-            border: leftBorder(hexColor, 16),
-            indent: { left: 480 },
-            spacing: { after: i === lines.length - 1 ? 100 : 40 },
-            children: [new TextRun({ text: line || ' ', font: 'Arial', size: 22, color: '1a1a2e' })]
-          }));
-        });
-      });
-
-      // Confidence
-      if (conf) {
-        const labels = ['', 'Low', 'Medium', 'High'];
-        children.push(new Paragraph({
-          border: leftBorder(hexColor, 12),
-          indent: { left: 480 },
-          spacing: { after: 200 },
-          children: [
-            new TextRun({ text: 'Confidence: ', font: 'Arial', size: 18, bold: true, color: '999aaa' }),
-            new TextRun({ text: labels[conf] + ' (' + conf + '/3)', font: 'Arial', size: 18, color: '999aaa', italics: true })
-          ]
-        }));
-      } else {
-        children.push(gap(200));
-      }
-    });
-
-    // ── Next Steps ──
-    if (data.nextsteps && data.nextsteps.trim()) {
-      children.push(new Paragraph({ border: { bottom: { style: BS.SINGLE, size: 2, color: 'ddd0ee', space: 1 } }, spacing: { before: 0, after: 240 }, children: [] }));
-      children.push(para([{ text: 'Next Steps & Owners', font: 'Arial', size: 26, bold: true, color: '290042' }], { spacing: { after: 120 } }));
-      data.nextsteps.split('\n').forEach(line => {
-        children.push(para([{ text: (line && line.trim()) || ' ', font: 'Arial', size: 22, color: '2a2a3a' }], { spacing: { after: 60 } }));
-      });
-    }
-
-    // ── Footer ──
-    const stamp = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-    children.push(new Paragraph({
-      alignment: AlignmentType.RIGHT,
-      spacing: { before: 440 },
-      children: [new TextRun({ text: 'Generated by SonarSource MEDDIC Tracker  ·  ' + stamp, font: 'Arial', size: 18, italics: true, color: 'bbbbcc' })]
-    }));
-
-    const doc = new Document({
-      sections: [{
-        properties: { page: { size: { width: 12240, height: 15840 }, margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 } } },
-        children
-      }]
-    });
-
-    const blob = await Packer.toBlob(doc);
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    const safeName = (data.company || 'Call').replace(/[^a-z0-9]/gi, '_');
-    const safeDate = (data.date || new Date().toISOString().slice(0, 10)).replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '');
-    a.download = 'MEDDIC_' + safeName + '_' + safeDate + '.docx';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-  } catch (err) {
-    console.error(err);
-    alert('Export failed: ' + err.message);
-  } finally {
-    btn.innerHTML = origHTML;
-    btn.disabled = false;
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (ok) { showCopyOk(); } else { showExportModal(text); }
+  } catch(e) {
+    document.body.removeChild(ta);
+    showExportModal(text);
   }
 }
-calls = loadStorage(); renderSidebar();
+
+function copyCall() {
+  const text = buildExportText();
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(showCopyOk).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function showExportModal(text) {
+  let modal = document.getElementById('export-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'export-modal';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px;';
+    modal.innerHTML = `
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:20px;max-width:600px;width:100%;max-height:80vh;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);">Select all & copy (Ctrl+A then Ctrl+C)</span>
+          <button onclick="document.getElementById('export-modal').remove()" style="background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:18px;line-height:1;">&times;</button>
+        </div>
+        <textarea id="export-modal-text" style="flex:1;min-height:300px;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:12px;font-size:12px;font-family:'DM Mono',monospace;resize:none;outline:none;line-height:1.6;"></textarea>
+      </div>`;
+    document.body.appendChild(modal);
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+  }
+  document.getElementById('export-modal-text').value = text;
+  setTimeout(() => {
+    const ta = document.getElementById('export-modal-text');
+    ta.focus(); ta.select();
+  }, 50);
+}
+
+// Init
+calls = loadStorage();
+renderSidebar();
 if (calls.length > 0) openCall(calls[0].id);
 </script>
 </body>
